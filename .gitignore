@@ -1,2 +1,2 @@
-.DS_Store
-MusicPlayer/MusicPlayer/Audio/*
+*.DS_Store
+*.mp3
