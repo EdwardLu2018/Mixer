@@ -13,6 +13,33 @@
 		2B9B906222AD6D290027874A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B906122AD6D290027874A /* Assets.xcassets */; };
 		2B9B906522AD6D290027874A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B906322AD6D290027874A /* LaunchScreen.storyboard */; };
 		2B9B907422ADBF8F0027874A /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B907322ADBF8F0027874A /* CustomSlider.swift */; };
+		2B9B909022AE0F530027874A /* Fiona Coyne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B908B22AE0F520027874A /* Fiona Coyne.mp3 */; };
+		2B9B909122AE0F530027874A /* Movies.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B908C22AE0F520027874A /* Movies.mp3 */; };
+		2B9B909222AE0F530027874A /* Letting Go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B908D22AE0F520027874A /* Letting Go.mp3 */; };
+		2B9B909322AE0F530027874A /* Fantasy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B908E22AE0F520027874A /* Fantasy.mp3 */; };
+		2B9B909422AE0F530027874A /* Oh No Oh Yes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B908F22AE0F520027874A /* Oh No Oh Yes.mp3 */; };
+		2B9B909822AE11080027874A /* I'll Be Your Girl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B909522AE11070027874A /* I'll Be Your Girl.mp3 */; };
+		2B9B909922AE11080027874A /* Julien.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B909622AE11070027874A /* Julien.mp3 */; };
+		2B9B909A22AE11080027874A /* Want You In My Room.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B909722AE11070027874A /* Want You In My Room.mp3 */; };
+		2B9B90A022AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B909D22AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 */; };
+		2B9B90AB22AE134D0027874A /* Sugar, We're Goin Down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A122AE134D0027874A /* Sugar, We're Goin Down.mp3 */; };
+		2B9B90AC22AE134D0027874A /* Time Of Our Lives.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A222AE134D0027874A /* Time Of Our Lives.mp3 */; };
+		2B9B90AE22AE134D0027874A /* The Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A422AE134D0027874A /* The Sound.mp3 */; };
+		2B9B90B022AE134D0027874A /* We Own The Night.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A622AE134D0027874A /* We Own The Night.mp3 */; };
+		2B9B90B122AE134D0027874A /* Bennie And The Jets.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A722AE134D0027874A /* Bennie And The Jets.mp3 */; };
+		2B9B90B222AE134D0027874A /* Everybody Wants To Rule The World.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90A822AE134D0027874A /* Everybody Wants To Rule The World.mp3 */; };
+		2B9B90B422AE134D0027874A /* UGH!.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90AA22AE134D0027874A /* UGH!.mp3 */; };
+		2B9B90D322AE90270027874A /* Chocolate.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90CD22AE90260027874A /* Chocolate.mp3 */; };
+		2B9B90D422AE90270027874A /* Young Robot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90CE22AE90260027874A /* Young Robot.mp3 */; };
+		2B9B90D522AE90270027874A /* Heart Out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90CF22AE90270027874A /* Heart Out.mp3 */; };
+		2B9B90D622AE90270027874A /* Settle Down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90D022AE90270027874A /* Settle Down.mp3 */; };
+		2B9B90D722AE90270027874A /* Summertime Gladness.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90D122AE90270027874A /* Summertime Gladness.mp3 */; };
+		2B9B90D822AE90270027874A /* Son Of Robot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B90D222AE90270027874A /* Son Of Robot.mp3 */; };
+		2B9B911222AF2FF70027874A /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B911122AF2FF70027874A /* SongViewController.swift */; };
+		2B9B911422AF31E00027874A /* Spanish Bay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911322AF31DF0027874A /* Spanish Bay.mp3 */; };
+		2B9B911622AF320C0027874A /* Midnight Pretenders.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */; };
+		2B9B911822AF321E0027874A /* First Kiss.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911722AF321D0027874A /* First Kiss.mp3 */; };
+		2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B911922AF41BB0027874A /* SongTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +51,33 @@
 		2B9B906422AD6D290027874A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B9B906622AD6D290027874A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B9B907322ADBF8F0027874A /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		2B9B908B22AE0F520027874A /* Fiona Coyne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Fiona Coyne.mp3"; sourceTree = "<group>"; };
+		2B9B908C22AE0F520027874A /* Movies.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Movies.mp3; sourceTree = "<group>"; };
+		2B9B908D22AE0F520027874A /* Letting Go.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Letting Go.mp3"; sourceTree = "<group>"; };
+		2B9B908E22AE0F520027874A /* Fantasy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Fantasy.mp3; sourceTree = "<group>"; };
+		2B9B908F22AE0F520027874A /* Oh No Oh Yes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Oh No Oh Yes.mp3"; sourceTree = "<group>"; };
+		2B9B909522AE11070027874A /* I'll Be Your Girl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "I'll Be Your Girl.mp3"; sourceTree = "<group>"; };
+		2B9B909622AE11070027874A /* Julien.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Julien.mp3; sourceTree = "<group>"; };
+		2B9B909722AE11070027874A /* Want You In My Room.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Want You In My Room.mp3"; sourceTree = "<group>"; };
+		2B9B909D22AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "夢の続き Yume No Tsuzuki.mp3"; sourceTree = "<group>"; };
+		2B9B90A122AE134D0027874A /* Sugar, We're Goin Down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Sugar, We're Goin Down.mp3"; sourceTree = "<group>"; };
+		2B9B90A222AE134D0027874A /* Time Of Our Lives.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Time Of Our Lives.mp3"; sourceTree = "<group>"; };
+		2B9B90A422AE134D0027874A /* The Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "The Sound.mp3"; sourceTree = "<group>"; };
+		2B9B90A622AE134D0027874A /* We Own The Night.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "We Own The Night.mp3"; sourceTree = "<group>"; };
+		2B9B90A722AE134D0027874A /* Bennie And The Jets.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Bennie And The Jets.mp3"; sourceTree = "<group>"; };
+		2B9B90A822AE134D0027874A /* Everybody Wants To Rule The World.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Everybody Wants To Rule The World.mp3"; sourceTree = "<group>"; };
+		2B9B90AA22AE134D0027874A /* UGH!.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "UGH!.mp3"; sourceTree = "<group>"; };
+		2B9B90CD22AE90260027874A /* Chocolate.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Chocolate.mp3; sourceTree = "<group>"; };
+		2B9B90CE22AE90260027874A /* Young Robot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Young Robot.mp3"; sourceTree = "<group>"; };
+		2B9B90CF22AE90270027874A /* Heart Out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Heart Out.mp3"; sourceTree = "<group>"; };
+		2B9B90D022AE90270027874A /* Settle Down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Settle Down.mp3"; sourceTree = "<group>"; };
+		2B9B90D122AE90270027874A /* Summertime Gladness.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Summertime Gladness.mp3"; sourceTree = "<group>"; };
+		2B9B90D222AE90270027874A /* Son Of Robot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Son Of Robot.mp3"; sourceTree = "<group>"; };
+		2B9B911122AF2FF70027874A /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
+		2B9B911322AF31DF0027874A /* Spanish Bay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Spanish Bay.mp3"; sourceTree = "<group>"; };
+		2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Midnight Pretenders.mp3"; sourceTree = "<group>"; };
+		2B9B911722AF321D0027874A /* First Kiss.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "First Kiss.mp3"; sourceTree = "<group>"; };
+		2B9B911922AF41BB0027874A /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +113,8 @@
 				2B9B905A22AD6D270027874A /* AppDelegate.swift */,
 				2B9B905C22AD6D270027874A /* ViewController.swift */,
 				2B9B907322ADBF8F0027874A /* CustomSlider.swift */,
+				2B9B911122AF2FF70027874A /* SongViewController.swift */,
+				2B9B911922AF41BB0027874A /* SongTableViewCell.swift */,
 				2B9B905E22AD6D270027874A /* Main.storyboard */,
 				2B9B906122AD6D290027874A /* Assets.xcassets */,
 				2B9B906322AD6D290027874A /* LaunchScreen.storyboard */,
@@ -71,6 +127,31 @@
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2B9B911722AF321D0027874A /* First Kiss.mp3 */,
+				2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */,
+				2B9B911322AF31DF0027874A /* Spanish Bay.mp3 */,
+				2B9B90CD22AE90260027874A /* Chocolate.mp3 */,
+				2B9B90CF22AE90270027874A /* Heart Out.mp3 */,
+				2B9B90D022AE90270027874A /* Settle Down.mp3 */,
+				2B9B90D222AE90270027874A /* Son Of Robot.mp3 */,
+				2B9B90D122AE90270027874A /* Summertime Gladness.mp3 */,
+				2B9B90CE22AE90260027874A /* Young Robot.mp3 */,
+				2B9B90A722AE134D0027874A /* Bennie And The Jets.mp3 */,
+				2B9B90A822AE134D0027874A /* Everybody Wants To Rule The World.mp3 */,
+				2B9B90A122AE134D0027874A /* Sugar, We're Goin Down.mp3 */,
+				2B9B90A422AE134D0027874A /* The Sound.mp3 */,
+				2B9B90A222AE134D0027874A /* Time Of Our Lives.mp3 */,
+				2B9B90AA22AE134D0027874A /* UGH!.mp3 */,
+				2B9B90A622AE134D0027874A /* We Own The Night.mp3 */,
+				2B9B909D22AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 */,
+				2B9B909522AE11070027874A /* I'll Be Your Girl.mp3 */,
+				2B9B909622AE11070027874A /* Julien.mp3 */,
+				2B9B909722AE11070027874A /* Want You In My Room.mp3 */,
+				2B9B908E22AE0F520027874A /* Fantasy.mp3 */,
+				2B9B908B22AE0F520027874A /* Fiona Coyne.mp3 */,
+				2B9B908D22AE0F520027874A /* Letting Go.mp3 */,
+				2B9B908C22AE0F520027874A /* Movies.mp3 */,
+				2B9B908F22AE0F520027874A /* Oh No Oh Yes.mp3 */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -138,9 +219,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B9B90AC22AE134D0027874A /* Time Of Our Lives.mp3 in Resources */,
+				2B9B90AE22AE134D0027874A /* The Sound.mp3 in Resources */,
+				2B9B911822AF321E0027874A /* First Kiss.mp3 in Resources */,
+				2B9B90B422AE134D0027874A /* UGH!.mp3 in Resources */,
+				2B9B911622AF320C0027874A /* Midnight Pretenders.mp3 in Resources */,
+				2B9B909022AE0F530027874A /* Fiona Coyne.mp3 in Resources */,
+				2B9B90A022AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 in Resources */,
+				2B9B90D422AE90270027874A /* Young Robot.mp3 in Resources */,
+				2B9B90D322AE90270027874A /* Chocolate.mp3 in Resources */,
+				2B9B909222AE0F530027874A /* Letting Go.mp3 in Resources */,
+				2B9B909A22AE11080027874A /* Want You In My Room.mp3 in Resources */,
 				2B9B906522AD6D290027874A /* LaunchScreen.storyboard in Resources */,
+				2B9B909922AE11080027874A /* Julien.mp3 in Resources */,
+				2B9B90B122AE134D0027874A /* Bennie And The Jets.mp3 in Resources */,
+				2B9B90D722AE90270027874A /* Summertime Gladness.mp3 in Resources */,
+				2B9B90D822AE90270027874A /* Son Of Robot.mp3 in Resources */,
 				2B9B906222AD6D290027874A /* Assets.xcassets in Resources */,
+				2B9B911422AF31E00027874A /* Spanish Bay.mp3 in Resources */,
+				2B9B909822AE11080027874A /* I'll Be Your Girl.mp3 in Resources */,
 				2B9B906022AD6D270027874A /* Main.storyboard in Resources */,
+				2B9B909122AE0F530027874A /* Movies.mp3 in Resources */,
+				2B9B90AB22AE134D0027874A /* Sugar, We're Goin Down.mp3 in Resources */,
+				2B9B909322AE0F530027874A /* Fantasy.mp3 in Resources */,
+				2B9B90B022AE134D0027874A /* We Own The Night.mp3 in Resources */,
+				2B9B90D522AE90270027874A /* Heart Out.mp3 in Resources */,
+				2B9B90B222AE134D0027874A /* Everybody Wants To Rule The World.mp3 in Resources */,
+				2B9B90D622AE90270027874A /* Settle Down.mp3 in Resources */,
+				2B9B909422AE0F530027874A /* Oh No Oh Yes.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +258,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B9B905D22AD6D270027874A /* ViewController.swift in Sources */,
+				2B9B911222AF2FF70027874A /* SongViewController.swift in Sources */,
+				2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */,
 				2B9B907422ADBF8F0027874A /* CustomSlider.swift in Sources */,
 				2B9B905B22AD6D270027874A /* AppDelegate.swift in Sources */,
 			);
