@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var actionImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var songLabel: UILabel!
+    @IBOutlet weak var replayToggleButton: UIButton!
+    @IBOutlet weak var durationLabel: UILabel!
     
     var audioPlayer = AVAudioPlayer()
     var gradientLayer: CAGradientLayer!
@@ -57,7 +59,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         
         let docsPath = Bundle.main.resourcePath!
         do {
@@ -97,14 +99,17 @@ class ViewController: UIViewController {
         
         setUpGradient()
         
+        replayToggleButton.isSelected = false
+        replayToggleButton.alpha = 0.25
+        
         slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
         slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
         
         singleTapGesture = UITapGestureRecognizer()
         singleTapGesture.numberOfTapsRequired = 1
-        singleTapGesture.addTarget(self, action: #selector(didSingleTapButton))
+        singleTapGesture.addTarget(self, action: #selector(didSingleTapPauseButton))
         singleTapGesture.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(singleTapGesture)
+        actionImage.addGestureRecognizer(singleTapGesture)
         
         doubleTapGesture = UITapGestureRecognizer()
         doubleTapGesture.numberOfTapsRequired = 2
@@ -158,7 +163,7 @@ class ViewController: UIViewController {
     }
     
     @objc
-    func timeFired() {
+    func timerFired() {
         if audioPlayer.isPlaying {
             if let image = UIImage(named: "pause-button") {
                 actionImage.image = image
@@ -171,13 +176,18 @@ class ViewController: UIViewController {
                 actionImage.image = image
             }
         }
+        
+        durationLabel.text = "\(Int(round(audioPlayer.currentTime) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.currentTime)) % 60)) / \(Int(round(audioPlayer.duration) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.duration)) % 60))"
 
-        if audioPlayer.currentTime > audioPlayer.duration - 0.25 {
-            songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
-            changeSongs()
+        if replayToggleButton.isSelected && audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+            replayCurrSong()
         }
         else if songIndex != Globals.currIndex {
             songIndex = Globals.currIndex
+            changeSongs()
+        }
+        else if audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+            songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
             changeSongs()
         }
         
@@ -196,21 +206,19 @@ class ViewController: UIViewController {
     }
     
     @objc
-    func didSingleTapButton(_ sender: UITapGestureRecognizer) {
+    func didSingleTapPauseButton(_ sender: UITapGestureRecognizer) {
         if audioPlayer.isPlaying {
             audioPlayer.pause()
         }
         else {
             audioPlayer.play()
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         }
     }
     
     @objc
     func didDoubleTapScreen(_ sender: UITapGestureRecognizer) {
-        audioPlayer.stop()
-        audioPlayer.currentTime = 0
-        audioPlayer.play()
+        replayCurrSong()
     }
     
     @objc
@@ -242,6 +250,12 @@ class ViewController: UIViewController {
         }
     }
     
+    func replayCurrSong() {
+        audioPlayer.stop()
+        audioPlayer.currentTime = 0
+        audioPlayer.play()
+    }
+    
     func changeSongs() {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
@@ -260,6 +274,17 @@ class ViewController: UIViewController {
         audioPlayer.stop()
         audioPlayer.currentTime = Double(sender.value) * audioPlayer.duration
         audioPlayer.play()
+    }
+    
+    @IBAction func didPressReplayButton(_ sender: UIButton) {
+        replayToggleButton.isSelected = !replayToggleButton.isSelected
+
+        if replayToggleButton.isSelected {
+            replayToggleButton.alpha = 1.0
+        }
+        else {
+            replayToggleButton.alpha = 0.25
+        }
     }
     
     func nextSongVCState() -> SongVCState {

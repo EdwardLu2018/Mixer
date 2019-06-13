@@ -37,7 +37,7 @@
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-button" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-sx-q09">
                                 <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-ca-iFR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-ca-iFR">
                                 <rect key="frame" x="0.0" y="183.5" width="375" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="XTS-Tw-FkD"/>
@@ -46,22 +46,46 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-qI-hPs">
+                                <rect key="frame" x="0.0" y="443.5" width="375" height="21"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWr-Gz-FBG">
+                                <rect key="frame" x="322.5" y="408" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="4ao-TV-0JY"/>
+                                    <constraint firstAttribute="height" constant="30" id="7ix-MR-dnP"/>
+                                </constraints>
+                                <state key="normal" image="refresh-button"/>
+                                <connections>
+                                    <action selector="didPressReplayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xIu-73-Gfg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.49019607843137253" green="0.78431372549019607" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="vWr-Gz-FBG" firstAttribute="top" secondItem="srg-ca-iFR" secondAttribute="bottom" constant="149.5" id="611-VF-LGg"/>
                             <constraint firstItem="4gL-9N-895" firstAttribute="top" secondItem="YQc-sx-q09" secondAttribute="bottom" constant="50" id="6iy-hD-RL3"/>
                             <constraint firstItem="srg-ca-iFR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A36-Ma-pjL"/>
                             <constraint firstItem="srg-ca-iFR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Inc-dQ-Pwg"/>
+                            <constraint firstItem="vWr-Gz-FBG" firstAttribute="leading" secondItem="4gL-9N-895" secondAttribute="trailing" constant="10" id="N0q-Vg-tPz"/>
                             <constraint firstItem="YQc-sx-q09" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="PcL-xL-yeR"/>
                             <constraint firstItem="YQc-sx-q09" firstAttribute="top" secondItem="srg-ca-iFR" secondAttribute="bottom" constant="50" id="Qkj-3v-Qyf"/>
                             <constraint firstItem="YQc-sx-q09" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ukk-YG-IUq"/>
                             <constraint firstItem="srg-ca-iFR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V8f-25-7RL"/>
+                            <constraint firstItem="OVf-qI-hPs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cpO-AI-EbJ"/>
+                            <constraint firstItem="OVf-qI-hPs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eGw-SF-UGn"/>
                             <constraint firstItem="4gL-9N-895" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pBB-fq-YKv"/>
+                            <constraint firstItem="OVf-qI-hPs" firstAttribute="top" secondItem="4gL-9N-895" secondAttribute="bottom" constant="5" id="xHg-QM-Nq8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="actionImage" destination="YQc-sx-q09" id="bmw-lb-Hmd"/>
+                        <outlet property="durationLabel" destination="OVf-qI-hPs" id="J37-pJ-R2y"/>
+                        <outlet property="replayToggleButton" destination="vWr-Gz-FBG" id="z2g-p5-q08"/>
                         <outlet property="slider" destination="4gL-9N-895" id="cOm-cH-KCC"/>
                         <outlet property="songLabel" destination="srg-ca-iFR" id="UJb-wh-Kuf"/>
                     </connections>
@@ -150,5 +174,6 @@
     </scenes>
     <resources>
         <image name="play-button" width="50" height="50"/>
+        <image name="refresh-button" width="50" height="50"/>
     </resources>
 </document>

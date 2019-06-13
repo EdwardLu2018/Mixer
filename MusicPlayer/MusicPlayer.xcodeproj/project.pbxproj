@@ -40,6 +40,11 @@
 		2B9B911622AF320C0027874A /* Midnight Pretenders.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */; };
 		2B9B911822AF321E0027874A /* First Kiss.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911722AF321D0027874A /* First Kiss.mp3 */; };
 		2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B911922AF41BB0027874A /* SongTableViewCell.swift */; };
+		2B9B912022B08E090027874A /* You Know How It Is.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911B22B08E080027874A /* You Know How It Is.mp3 */; };
+		2B9B912122B08E090027874A /* Time Today.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911C22B08E080027874A /* Time Today.mp3 */; };
+		2B9B912222B08E090027874A /* Trampoline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911D22B08E090027874A /* Trampoline.mp3 */; };
+		2B9B912322B08E090027874A /* Fish Bowl.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911E22B08E090027874A /* Fish Bowl.mp3 */; };
+		2B9B912422B08E090027874A /* Picture This.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B911F22B08E090027874A /* Picture This.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,11 @@
 		2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Midnight Pretenders.mp3"; sourceTree = "<group>"; };
 		2B9B911722AF321D0027874A /* First Kiss.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "First Kiss.mp3"; sourceTree = "<group>"; };
 		2B9B911922AF41BB0027874A /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
+		2B9B911B22B08E080027874A /* You Know How It Is.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "You Know How It Is.mp3"; sourceTree = "<group>"; };
+		2B9B911C22B08E080027874A /* Time Today.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Time Today.mp3"; sourceTree = "<group>"; };
+		2B9B911D22B08E090027874A /* Trampoline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Trampoline.mp3; sourceTree = "<group>"; };
+		2B9B911E22B08E090027874A /* Fish Bowl.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Fish Bowl.mp3"; sourceTree = "<group>"; };
+		2B9B911F22B08E090027874A /* Picture This.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Picture This.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +137,11 @@
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2B9B911E22B08E090027874A /* Fish Bowl.mp3 */,
+				2B9B911F22B08E090027874A /* Picture This.mp3 */,
+				2B9B911C22B08E080027874A /* Time Today.mp3 */,
+				2B9B911D22B08E090027874A /* Trampoline.mp3 */,
+				2B9B911B22B08E080027874A /* You Know How It Is.mp3 */,
 				2B9B911722AF321D0027874A /* First Kiss.mp3 */,
 				2B9B911522AF320C0027874A /* Midnight Pretenders.mp3 */,
 				2B9B911322AF31DF0027874A /* Spanish Bay.mp3 */,
@@ -227,13 +242,17 @@
 				2B9B909022AE0F530027874A /* Fiona Coyne.mp3 in Resources */,
 				2B9B90A022AE11D70027874A /* 夢の続き Yume No Tsuzuki.mp3 in Resources */,
 				2B9B90D422AE90270027874A /* Young Robot.mp3 in Resources */,
+				2B9B912022B08E090027874A /* You Know How It Is.mp3 in Resources */,
+				2B9B912322B08E090027874A /* Fish Bowl.mp3 in Resources */,
 				2B9B90D322AE90270027874A /* Chocolate.mp3 in Resources */,
 				2B9B909222AE0F530027874A /* Letting Go.mp3 in Resources */,
+				2B9B912222B08E090027874A /* Trampoline.mp3 in Resources */,
 				2B9B909A22AE11080027874A /* Want You In My Room.mp3 in Resources */,
 				2B9B906522AD6D290027874A /* LaunchScreen.storyboard in Resources */,
 				2B9B909922AE11080027874A /* Julien.mp3 in Resources */,
 				2B9B90B122AE134D0027874A /* Bennie And The Jets.mp3 in Resources */,
 				2B9B90D722AE90270027874A /* Summertime Gladness.mp3 in Resources */,
+				2B9B912122B08E090027874A /* Time Today.mp3 in Resources */,
 				2B9B90D822AE90270027874A /* Son Of Robot.mp3 in Resources */,
 				2B9B906222AD6D290027874A /* Assets.xcassets in Resources */,
 				2B9B911422AF31E00027874A /* Spanish Bay.mp3 in Resources */,
@@ -242,6 +261,7 @@
 				2B9B909122AE0F530027874A /* Movies.mp3 in Resources */,
 				2B9B90AB22AE134D0027874A /* Sugar, We're Goin Down.mp3 in Resources */,
 				2B9B909322AE0F530027874A /* Fantasy.mp3 in Resources */,
+				2B9B912422B08E090027874A /* Picture This.mp3 in Resources */,
 				2B9B90B022AE134D0027874A /* We Own The Night.mp3 in Resources */,
 				2B9B90D522AE90270027874A /* Heart Out.mp3 in Resources */,
 				2B9B90B222AE134D0027874A /* Everybody Wants To Rule The World.mp3 in Resources */,
