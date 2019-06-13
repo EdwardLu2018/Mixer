@@ -1,7 +1,7 @@
 # Mixer
 
 ## Screenshot:
-![screenshot](/readme/screenshot.png)
+![screenshot](/images/screenshot.jpg)
 
 ## Features:
 - Pause and play audio
