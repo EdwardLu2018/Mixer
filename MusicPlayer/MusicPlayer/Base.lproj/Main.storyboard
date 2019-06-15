@@ -34,7 +34,7 @@
                                     <action selector="sliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="Lcj-Ep-5sP"/>
                                 </connections>
                             </slider>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-button" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-sx-q09">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause-button" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-sx-q09">
                                 <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-ca-iFR">
@@ -173,7 +173,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="play-button" width="50" height="50"/>
+        <image name="pause-button" width="50" height="50"/>
         <image name="refresh-button" width="50" height="50"/>
     </resources>
 </document>

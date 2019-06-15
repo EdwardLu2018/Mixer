@@ -53,14 +53,62 @@ class ViewController: UIViewController {
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted:CGFloat = 0
     
-    let seaGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 90.0/255.0, alpha: 1)
+    let seaGreen = UIColor.init(red: 45.0/255.0, green: 10.0/255.0, blue: 90.0/255.0, alpha: 1)
     let lightGreen = UIColor.init(red: 125.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch {
+            print(error)
+        }
+        
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         
+        replayToggleButton.isSelected = false
+        replayToggleButton.alpha = 0.25
+        
+        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
+        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
+
+        setupAudio()
+        setUpGradient()
+        setupGuestures()
+        setUpSongViewController()
+        
+        audioPlayer.play()
+    }
+    
+    // Handles headphone events
+    override func remoteControlReceived(with event: UIEvent?) {
+        if event!.type == UIEvent.EventType.remoteControl {
+            switch event!.subtype {
+            case UIEvent.EventSubtype.remoteControlTogglePlayPause:
+                togglePausePlay()
+                break
+            case UIEvent.EventSubtype.remoteControlNextTrack:
+                songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+                changeSongs()
+                break
+            case UIEvent.EventSubtype.remoteControlPreviousTrack:
+                songIndex = (songIndex - 1) > 0 ? (songIndex - 1) : (songs.count - 1)
+                changeSongs()
+                break
+            default:
+                break
+            }
+        }
+
+    }
+    
+    func setupAudio() {
         let docsPath = Bundle.main.resourcePath!
         do {
             let docsArray = try self.filemanager.contentsOfDirectory(atPath: docsPath)
@@ -76,6 +124,8 @@ class ViewController: UIViewController {
         }
         
         Globals.songs = songs
+        songLabel.text = songs[songIndex]
+        Globals.currIndex = songIndex
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
@@ -93,18 +143,18 @@ class ViewController: UIViewController {
         catch {
             print(error)
         }
-        
-        songLabel.text = songs[songIndex]
-        Globals.currIndex = songIndex
-        
-        setUpGradient()
-        
-        replayToggleButton.isSelected = false
-        replayToggleButton.alpha = 0.25
-        
-        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
-        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
-        
+    }
+    
+    func setUpGradient() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [seaGreen, lightGreen]
+        self.view.layer.insertSublayer(gradientLayer, at: 1)
+    }
+    
+    func setupGuestures() {
         singleTapGesture = UITapGestureRecognizer()
         singleTapGesture.numberOfTapsRequired = 1
         singleTapGesture.addTarget(self, action: #selector(didSingleTapPauseButton))
@@ -126,19 +176,6 @@ class ViewController: UIViewController {
         swipeRightGesture.addTarget(self, action: #selector(didSwipeRight))
         swipeRightGesture.direction = .right
         self.view.addGestureRecognizer(swipeRightGesture)
-        
-        audioPlayer.play()
-        
-        setUpSongViewController()
-    }
-    
-    func setUpGradient() {
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [seaGreen, lightGreen]
-        self.view.layer.insertSublayer(gradientLayer, at: 1)
     }
     
     func setUpSongViewController() {
@@ -164,20 +201,10 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-        if audioPlayer.isPlaying {
-            if let image = UIImage(named: "pause-button") {
-                actionImage.image = image
-            }
-            let fraction = audioPlayer.currentTime / audioPlayer.duration
-            slider.setValue(Float(fraction), animated: true)
-        }
-        else {
-            if let image = UIImage(named: "play-button") {
-                actionImage.image = image
-            }
-        }
-        
         durationLabel.text = "\(Int(round(audioPlayer.currentTime) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.currentTime)) % 60)) / \(Int(round(audioPlayer.duration) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.duration)) % 60))"
+        
+        let fraction = audioPlayer.currentTime / audioPlayer.duration
+        slider.setValue(Float(fraction), animated: true)
 
         if replayToggleButton.isSelected && audioPlayer.currentTime > audioPlayer.duration - 0.25 {
             replayCurrSong()
@@ -207,18 +234,34 @@ class ViewController: UIViewController {
     
     @objc
     func didSingleTapPauseButton(_ sender: UITapGestureRecognizer) {
+        togglePausePlay()
+    }
+    
+    func togglePausePlay() {
         if audioPlayer.isPlaying {
             audioPlayer.pause()
+            if let image = UIImage(named: "play-button") {
+                actionImage.image = image
+            }
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         }
         else {
             audioPlayer.play()
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+            if let image = UIImage(named: "pause-button") {
+                actionImage.image = image
+            }
         }
     }
     
     @objc
     func didDoubleTapScreen(_ sender: UITapGestureRecognizer) {
         replayCurrSong()
+    }
+    
+    func replayCurrSong() {
+        audioPlayer.stop()
+        audioPlayer.currentTime = 0
+        audioPlayer.play()
     }
     
     @objc
@@ -231,6 +274,24 @@ class ViewController: UIViewController {
     func didSwipeRight() {
         songIndex = (songIndex - 1) > 0 ? (songIndex - 1) : (songs.count - 1)
         changeSongs()
+    }
+    
+    func changeSongs() {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
+            audioPlayer.prepareToPlay()
+        }
+        catch {
+            print(error)
+        }
+        songLabel.text = songs[songIndex]
+        Globals.currIndex = songIndex
+        audioPlayer.currentTime = 0
+        audioPlayer.play()
+        if let image = UIImage(named: "pause-button") {
+            actionImage.image = image
+        }
+        slider.setValue(0.0, animated: true)
     }
     
     @objc
@@ -248,26 +309,6 @@ class ViewController: UIViewController {
         default:
             break
         }
-    }
-    
-    func replayCurrSong() {
-        audioPlayer.stop()
-        audioPlayer.currentTime = 0
-        audioPlayer.play()
-    }
-    
-    func changeSongs() {
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
-            audioPlayer.prepareToPlay()
-        }
-        catch {
-            print(error)
-        }
-        songLabel.text = songs[songIndex]
-        Globals.currIndex = songIndex
-        audioPlayer.currentTime = 0
-        audioPlayer.play()
     }
     
     @IBAction func sliderDidSlide(_ sender: UISlider) {
@@ -311,7 +352,7 @@ class ViewController: UIViewController {
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
-                    self.songViewController.view.layer.cornerRadius = 15
+                    self.songViewController.view.layer.cornerRadius = 12
                 case .collapsed:
                     self.songViewController.view.layer.cornerRadius = 5
                 }
@@ -322,7 +363,7 @@ class ViewController: UIViewController {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .light)
+                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
                     
                 case .collapsed:
                     self.visualEffectView.effect = nil
