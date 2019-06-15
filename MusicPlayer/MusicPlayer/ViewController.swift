@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-//import MediaPlayer
 
 struct Globals {
     static var songs = [String]()
@@ -16,7 +15,7 @@ struct Globals {
     static var currIndex = Int()
 }
 
-class ViewController: UIViewController, AVAudioPlayerDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var actionImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
@@ -106,15 +105,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
         slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
         
-//        let mpVolumeHolderView = UIView(frame: CGRect(x: -view.bounds.width/6+15, y: slider.frame.origin.y, width: view.bounds.width/3, height: 10))
-//        mpVolumeHolderView.backgroundColor = .clear
-//        let mpVolume = MPVolumeView(frame: mpVolumeHolderView.bounds)
-//        mpVolumeHolderView.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
-//        mpVolumeHolderView.addSubview(mpVolume)
-//        view.addSubview(mpVolumeHolderView)
-        
-        audioPlayer.delegate = self
-        
         singleTapGesture = UITapGestureRecognizer()
         singleTapGesture.numberOfTapsRequired = 1
         singleTapGesture.addTarget(self, action: #selector(didSingleTapPauseButton))
@@ -172,18 +162,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            if replayToggleButton.isSelected {
-                replayCurrSong()
-            }
-            else {
-                songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
-                changeSongs()
-            }
-        }
-    }
-    
     @objc
     func timerFired() {
         if audioPlayer.isPlaying {
@@ -201,8 +179,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         
         durationLabel.text = "\(Int(round(audioPlayer.currentTime) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.currentTime)) % 60)) / \(Int(round(audioPlayer.duration) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.duration)) % 60))"
 
-        if songIndex != Globals.currIndex {
+        if replayToggleButton.isSelected && audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+            replayCurrSong()
+        }
+        else if songIndex != Globals.currIndex {
             songIndex = Globals.currIndex
+            changeSongs()
+        }
+        else if audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+            songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
             changeSongs()
         }
         
@@ -244,7 +229,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     @objc
     func didSwipeRight() {
-        songIndex = (songIndex - 1) >= 0 ? (songIndex - 1) : (songs.count - 1)
+        songIndex = (songIndex - 1) > 0 ? (songIndex - 1) : (songs.count - 1)
         changeSongs()
     }
     
@@ -285,7 +270,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayer.play()
     }
     
-    @IBAction func didSlideSlider(_ sender: UISlider) {
+    @IBAction func sliderDidSlide(_ sender: UISlider) {
         audioPlayer.stop()
         audioPlayer.currentTime = Double(sender.value) * audioPlayer.duration
         audioPlayer.play()
@@ -337,7 +322,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                    self.visualEffectView.effect = UIBlurEffect(style: .light)
                     
                 case .collapsed:
                     self.visualEffectView.effect = nil
@@ -370,12 +355,4 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-}
-
-extension UIView
-{
-    func makeVertical()
-    {
-        transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-    }
 }
