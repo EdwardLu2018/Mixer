@@ -311,9 +311,9 @@ class ViewController: UIViewController {
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
-                    self.songViewController.view.layer.cornerRadius = 12
+                    self.songViewController.view.layer.cornerRadius = 15
                 case .collapsed:
-                    self.songViewController.view.layer.cornerRadius = 0
+                    self.songViewController.view.layer.cornerRadius = 5
                 }
             }
             cornerRadiusAnimator.startAnimation()
