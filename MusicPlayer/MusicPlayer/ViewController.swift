@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 struct Globals {
     static var songs = [String]()
@@ -51,9 +52,9 @@ class ViewController: UIViewController {
     var songVCVisible = false
     
     var runningAnimations = [UIViewPropertyAnimator]()
-    var animationProgressWhenInterrupted:CGFloat = 0
+    var animationProgressWhenInterrupted: CGFloat = 0
     
-    let seaGreen = UIColor.init(red: 45.0/255.0, green: 10.0/255.0, blue: 90.0/255.0, alpha: 1)
+    let customGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
     let lightGreen = UIColor.init(red: 125.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1)
     
     override func viewDidLoad() {
@@ -148,10 +149,10 @@ class ViewController: UIViewController {
     func setUpGradient() {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [seaGreen, lightGreen]
-        self.view.layer.insertSublayer(gradientLayer, at: 1)
+//        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func setupGuestures() {
@@ -243,7 +244,7 @@ class ViewController: UIViewController {
             if let image = UIImage(named: "play-button") {
                 actionImage.image = image
             }
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+//            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         }
         else {
             audioPlayer.play()
@@ -334,7 +335,7 @@ class ViewController: UIViewController {
     
     func animateTransitionIfNeeded(state: SongVCState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.85) {
                 switch state {
                 case .expanded:
                     self.songViewController.view.frame.origin.y = self.view.frame.height - self.songVCHeight
@@ -360,7 +361,7 @@ class ViewController: UIViewController {
             cornerRadiusAnimator.startAnimation()
             runningAnimations.append(cornerRadiusAnimator)
             
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.9) {
                 switch state {
                 case .expanded:
                     self.visualEffectView.effect = UIBlurEffect(style: .dark)

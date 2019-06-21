@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AudioEnginePlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2400" maxValue="2400" translatesAutoresizingMaskIntoConstraints="NO" id="fGB-RK-0qW" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="35.5" y="377" width="304" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="axh-12-8FB"/>
+                                    <constraint firstAttribute="height" constant="30" id="jCw-We-tvT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="pitchSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="5jG-No-zNh"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.25" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="kEA-0n-VEV" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="35.5" y="417" width="304" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="D3b-l8-jPw"/>
+                                    <constraint firstAttribute="width" constant="300" id="ffC-8a-IXT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="speedSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="Wos-TV-l4J"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="3ow-PJ-IJr" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="35.5" y="457" width="304" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="A1Y-oM-NkT"/>
+                                    <constraint firstAttribute="height" constant="30" id="QBi-Br-fTd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="reverbSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="Scz-pP-RoI"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Q1j-qc-Sya" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="35.5" y="497" width="304" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1qf-so-e3x"/>
+                                    <constraint firstAttribute="width" constant="300" id="m1H-Rf-PWu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="echoSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="Sj9-kr-ERk"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="aRB-iS-0Ds" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="35.5" y="537" width="304" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5Bj-9B-cpe"/>
+                                    <constraint firstAttribute="width" constant="300" id="EtZ-np-gwt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="distortionSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="hxZ-ZT-b6y"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-eN-6GX" customClass="CustomSlider" customModule="AudioEnginePlayer" customModuleProvider="target">
+                                <rect key="frame" x="48" y="341" width="279" height="31"/>
+                                <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="progressSliderDidSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="DZU-fp-kgT"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-Hi-8l1">
+                                <rect key="frame" x="162.5" y="216" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ChE-d8-hRH"/>
+                                    <constraint firstAttribute="width" constant="50" id="zSZ-zw-9sn"/>
+                                </constraints>
+                                <state key="normal" image="replay"/>
+                                <connections>
+                                    <action selector="resetButtonDidPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lXu-3F-7zv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.49019607840000001" green="0.7843137255" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="kEA-0n-VEV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8io-KO-nGB"/>
+                            <constraint firstItem="kEA-0n-VEV" firstAttribute="top" secondItem="fGB-RK-0qW" secondAttribute="bottom" constant="10" id="Bue-FV-Bf0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JGS-eN-6GX" secondAttribute="trailing" constant="50" id="Guo-40-DI4"/>
+                            <constraint firstItem="aRB-iS-0Ds" firstAttribute="top" secondItem="Q1j-qc-Sya" secondAttribute="bottom" constant="10" id="JfV-OB-EH8"/>
+                            <constraint firstItem="Q1j-qc-Sya" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KfL-rf-O49"/>
+                            <constraint firstItem="JGS-eN-6GX" firstAttribute="top" secondItem="jmM-Hi-8l1" secondAttribute="bottom" constant="75" id="Rb2-gc-Vbf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aRB-iS-0Ds" secondAttribute="bottom" constant="100" id="Rfp-lB-kMu"/>
+                            <constraint firstItem="aRB-iS-0Ds" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TMz-i6-X0S"/>
+                            <constraint firstItem="jmM-Hi-8l1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UAj-Wh-zzj"/>
+                            <constraint firstItem="Q1j-qc-Sya" firstAttribute="top" secondItem="3ow-PJ-IJr" secondAttribute="bottom" constant="10" id="Ux7-qF-gZk"/>
+                            <constraint firstItem="JGS-eN-6GX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="eZC-6D-h7W"/>
+                            <constraint firstItem="jmM-Hi-8l1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="196" id="hie-Yk-GV4"/>
+                            <constraint firstItem="JGS-eN-6GX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n3C-aj-hcm"/>
+                            <constraint firstItem="fGB-RK-0qW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="okw-L1-Kcf"/>
+                            <constraint firstItem="3ow-PJ-IJr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rSf-Fn-RCc"/>
+                            <constraint firstItem="3ow-PJ-IJr" firstAttribute="top" secondItem="kEA-0n-VEV" secondAttribute="bottom" constant="10" id="s0U-lo-3rz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="distortionSlider" destination="aRB-iS-0Ds" id="1dt-Up-5H2"/>
+                        <outlet property="echoSlider" destination="Q1j-qc-Sya" id="I3O-Sm-tdG"/>
+                        <outlet property="pitchSlider" destination="fGB-RK-0qW" id="G4u-nh-R9n"/>
+                        <outlet property="progressSlider" destination="JGS-eN-6GX" id="Ydo-oZ-pvJ"/>
+                        <outlet property="reverbSlider" destination="3ow-PJ-IJr" id="IdL-J4-Kki"/>
+                        <outlet property="speedSlider" destination="kEA-0n-VEV" id="tbg-MJ-Evh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="40.799999999999997" y="26.53673163418291"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="replay" width="60" height="60"/>
+    </resources>
+</document>
