@@ -12,6 +12,7 @@
 ## To do:
 - [x] Choose songs from tableview
 - [x] Add toggle replay button
+- [X] Use AVAudioEngine and AVAudioNodes to control audio output
+- [X] Use AVAudioNodes to control pitch, speed, reverb, and echo
 - [ ] Volume control with MPVolumeView
-- [ ] Use AVAudioEngine and AVAudioNodes to control audio output
-- [ ] Use AVAudioNodes to control pitch, speed, reverb, and echo
+- [ ] Integrate AVAudioEnginePlayer with MusicPlayer
