@@ -55,7 +55,8 @@
 		2BE0E7CA22BB1165000221D4 /* What You Know.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7C922BB1165000221D4 /* What You Know.mp3 */; };
 		2BE0E7D322BD15DF000221D4 /* Panini.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7D122BD15DF000221D4 /* Panini.mp3 */; };
 		2BE0E7D422BD15DF000221D4 /* All Alone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */; };
-		2BEC3F1922BF13B000AEEFED /* C7osure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F1822BF13AF00AEEFED /* C7osure.mp3 */; };
+		2BEC3F1B22BF245F00AEEFED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */; };
+		2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */; };
 		2BF53B6D22B4889B00ECAE8E /* Sanctuary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */; };
 		2BF53BB322B48EF600ECAE8E /* Make Believe.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */; };
 		2BF53BB422B48EF600ECAE8E /* Big City.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BAD22B48EF600ECAE8E /* Big City.mp3 */; };
@@ -85,7 +86,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B9B905722AD6D270027874A /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B9B905722AD6D270027874A /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9B905A22AD6D270027874A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B9B905C22AD6D270027874A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2B9B905F22AD6D270027874A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -135,7 +136,8 @@
 		2BE0E7C922BB1165000221D4 /* What You Know.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "What You Know.mp3"; sourceTree = "<group>"; };
 		2BE0E7D122BD15DF000221D4 /* Panini.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Panini.mp3; sourceTree = "<group>"; };
 		2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "All Alone.mp3"; sourceTree = "<group>"; };
-		2BEC3F1822BF13AF00AEEFED /* C7osure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C7osure.mp3; sourceTree = "<group>"; };
+		2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioPlayer.swift; path = ../../AudioEnginePlayer/AudioEnginePlayer/AudioPlayer.swift; sourceTree = "<group>"; };
+		2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C7osure.mp3; sourceTree = "<group>"; };
 		2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sanctuary.mp3; sourceTree = "<group>"; };
 		2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Make Believe.mp3"; sourceTree = "<group>"; };
 		2BF53BAD22B48EF600ECAE8E /* Big City.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Big City.mp3"; sourceTree = "<group>"; };
@@ -178,7 +180,7 @@
 		2B9B904E22AD6D270027874A = {
 			isa = PBXGroup;
 			children = (
-				2B9B905922AD6D270027874A /* MusicPlayer */,
+				2B9B905922AD6D270027874A /* Mixer */,
 				2B9B905822AD6D270027874A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -186,17 +188,18 @@
 		2B9B905822AD6D270027874A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B9B905722AD6D270027874A /* MusicPlayer.app */,
+				2B9B905722AD6D270027874A /* Mixer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2B9B905922AD6D270027874A /* MusicPlayer */ = {
+		2B9B905922AD6D270027874A /* Mixer */ = {
 			isa = PBXGroup;
 			children = (
 				2B9B905A22AD6D270027874A /* AppDelegate.swift */,
-				2B9B905C22AD6D270027874A /* ViewController.swift */,
 				2B9B907322ADBF8F0027874A /* CustomSlider.swift */,
+				2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */,
+				2B9B905C22AD6D270027874A /* ViewController.swift */,
 				2B9B911122AF2FF70027874A /* SongViewController.swift */,
 				2B9B911922AF41BB0027874A /* SongTableViewCell.swift */,
 				2B9B905E22AD6D270027874A /* Main.storyboard */,
@@ -205,13 +208,13 @@
 				2B9B906C22AD6E6B0027874A /* Audio */,
 				2B9B906622AD6D290027874A /* Info.plist */,
 			);
-			path = MusicPlayer;
+			path = Mixer;
 			sourceTree = "<group>";
 		};
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				2BEC3F1822BF13AF00AEEFED /* C7osure.mp3 */,
+				2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */,
 				2BD08C8C22BE974E00282C25 /* Lisa Baby.mp3 */,
 				2BD08C8A22BE974E00282C25 /* Portugal.mp3 */,
 				2BD08C8D22BE974E00282C25 /* Shiver Shiver.mp3 */,
@@ -285,9 +288,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2B9B905622AD6D270027874A /* MusicPlayer */ = {
+		2B9B905622AD6D270027874A /* Mixer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B9B906922AD6D290027874A /* Build configuration list for PBXNativeTarget "MusicPlayer" */;
+			buildConfigurationList = 2B9B906922AD6D290027874A /* Build configuration list for PBXNativeTarget "Mixer" */;
 			buildPhases = (
 				2B9B905322AD6D270027874A /* Sources */,
 				2B9B905422AD6D270027874A /* Frameworks */,
@@ -297,9 +300,9 @@
 			);
 			dependencies = (
 			);
-			name = MusicPlayer;
-			productName = MusicPlayer;
-			productReference = 2B9B905722AD6D270027874A /* MusicPlayer.app */;
+			name = Mixer;
+			productName = Mixer;
+			productReference = 2B9B905722AD6D270027874A /* Mixer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -322,7 +325,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2B9B905222AD6D270027874A /* Build configuration list for PBXProject "MusicPlayer" */;
+			buildConfigurationList = 2B9B905222AD6D270027874A /* Build configuration list for PBXProject "Mixer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -335,7 +338,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2B9B905622AD6D270027874A /* MusicPlayer */,
+				2B9B905622AD6D270027874A /* Mixer */,
 			);
 		};
 /* End PBXProject section */
@@ -394,7 +397,7 @@
 				2BF53B6D22B4889B00ECAE8E /* Sanctuary.mp3 in Resources */,
 				2B9B90D822AE90270027874A /* Son Of Robot.mp3 in Resources */,
 				2B9B906222AD6D290027874A /* Assets.xcassets in Resources */,
-				2BEC3F1922BF13B000AEEFED /* C7osure.mp3 in Resources */,
+				2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */,
 				2BF53BE422B69B8B00ECAE8E /* Portable Radio.mp3 in Resources */,
 				2B9B911422AF31E00027874A /* Spanish Bay.mp3 in Resources */,
 				2B9B909822AE11080027874A /* I'll Be Your Girl.mp3 in Resources */,
@@ -430,6 +433,7 @@
 				2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */,
 				2B9B907422ADBF8F0027874A /* CustomSlider.swift in Sources */,
 				2B9B905B22AD6D270027874A /* AppDelegate.swift in Sources */,
+				2BEC3F1B22BF245F00AEEFED /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,13 +581,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LYJSRZED64;
-				INFOPLIST_FILE = MusicPlayer/Info.plist;
+				INFOPLIST_FILE = Mixer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.EdwardLu.MusicPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.EdwardLu.Mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -596,13 +600,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LYJSRZED64;
-				INFOPLIST_FILE = MusicPlayer/Info.plist;
+				INFOPLIST_FILE = Mixer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.EdwardLu.MusicPlayer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.EdwardLu.Mixer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -612,7 +616,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2B9B905222AD6D270027874A /* Build configuration list for PBXProject "MusicPlayer" */ = {
+		2B9B905222AD6D270027874A /* Build configuration list for PBXProject "Mixer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B9B906722AD6D290027874A /* Debug */,
@@ -621,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B9B906922AD6D290027874A /* Build configuration list for PBXNativeTarget "MusicPlayer" */ = {
+		2B9B906922AD6D290027874A /* Build configuration list for PBXNativeTarget "Mixer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B9B906A22AD6D290027874A /* Debug */,

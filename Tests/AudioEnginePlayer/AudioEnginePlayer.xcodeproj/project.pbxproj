@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BE0E7D022BC68FE000221D4 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE0E7CF22BC68FE000221D4 /* CustomSlider.swift */; };
+		2BEC3F1622BECDC200AEEFED /* You Know How It Is.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F1522BECDC200AEEFED /* You Know How It Is.mp3 */; };
 		2BF53B5122B3307500ECAE8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF53B5022B3307500ECAE8E /* AppDelegate.swift */; };
 		2BF53B5322B3307500ECAE8E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF53B5222B3307500ECAE8E /* ViewController.swift */; };
 		2BF53B5622B3307600ECAE8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53B5422B3307600ECAE8E /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2BE0E7CF22BC68FE000221D4 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		2BEC3F1522BECDC200AEEFED /* You Know How It Is.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "You Know How It Is.mp3"; sourceTree = "<group>"; };
 		2BF53B4D22B3307500ECAE8E /* AudioEnginePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioEnginePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF53B5022B3307500ECAE8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BF53B5222B3307500ECAE8E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BEC3F1722BED4D900AEEFED /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				2BEC3F1522BECDC200AEEFED /* You Know How It Is.mp3 */,
+				2BF53B6822B3316900ECAE8E /* Julien.mp3 */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		2BF53B4422B3307500ECAE8E = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +75,7 @@
 				2BE0E7CF22BC68FE000221D4 /* CustomSlider.swift */,
 				2BF53B6622B330E000ECAE8E /* AudioPlayer.swift */,
 				2BF53B5222B3307500ECAE8E /* ViewController.swift */,
-				2BF53B6822B3316900ECAE8E /* Julien.mp3 */,
+				2BEC3F1722BED4D900AEEFED /* Audio */,
 				2BF53B5422B3307600ECAE8E /* Main.storyboard */,
 				2BF53B5722B3308100ECAE8E /* Assets.xcassets */,
 				2BF53B5922B3308100ECAE8E /* LaunchScreen.storyboard */,
@@ -136,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BEC3F1622BECDC200AEEFED /* You Know How It Is.mp3 in Resources */,
 				2BF53B5B22B3308100ECAE8E /* LaunchScreen.storyboard in Resources */,
 				2BF53B5822B3308100ECAE8E /* Assets.xcassets in Resources */,
 				2BF53B5622B3307600ECAE8E /* Main.storyboard in Resources */,

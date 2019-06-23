@@ -11,7 +11,13 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    var audioPlayer = AudioPlayer(filename: "Julien")
+    var audioPlayer: AudioPlayer!
+    var songs = [String]()
+    var songIndex = Int()
+    var filemanager = FileManager.default
+    
+    var swipeLeftGesture = UISwipeGestureRecognizer()
+    var swipeRightGesture = UISwipeGestureRecognizer()
     
     @IBOutlet weak var pitchSlider: UISlider!
     @IBOutlet weak var speedSlider: UISlider!
@@ -24,6 +30,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let docsPath = Bundle.main.resourcePath!
+        do {
+            let docsArray = try self.filemanager.contentsOfDirectory(atPath: docsPath)
+            for file in docsArray {
+                let fileURL = URL(fileURLWithPath: file)
+                if fileURL.pathExtension == "mp3" {
+                    songs.append(fileURL.deletingPathExtension().lastPathComponent)
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+        
+        audioPlayer = AudioPlayer(filename: songs[songIndex])
         // Do any additional setup after loading the view.
         audioPlayer.play()
         
@@ -49,18 +70,47 @@ class ViewController: UIViewController {
         echoSlider.setThumbImage(UIImage(imageLiteralResourceName: "slider"), for: .normal)
         distortionSlider.setThumbImage(UIImage(imageLiteralResourceName: "slider"), for: .normal)
         
-//        audioPlayer.goTo(time: 50)
-//        print("init",audioPlayer.getCurrentPosition())
+        swipeLeftGesture = UISwipeGestureRecognizer()
+        swipeLeftGesture.addTarget(self, action: #selector(didSwipeLeft))
+        swipeLeftGesture.direction = .left
+        self.view.addGestureRecognizer(swipeLeftGesture)
+        
+        swipeRightGesture = UISwipeGestureRecognizer()
+        swipeRightGesture.addTarget(self, action: #selector(didSwipeRight))
+        swipeRightGesture.direction = .right
+        self.view.addGestureRecognizer(swipeRightGesture)
     }
     
     @objc
     func timerFired() {
         progressSlider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
+        print(songIndex)
+    }
+    
+    @objc
+    func didSwipeLeft() {
+        songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+        changeSongs()
+    }
+    
+    @objc
+    func didSwipeRight() {
+        songIndex = (songIndex - 1) >= 0 ? (songIndex - 1) : (songs.count - 1)
+        changeSongs()
+    }
+    
+    func changeSongs() {
+        audioPlayer = AudioPlayer(filename: songs[songIndex])
+        resetSliders()
+        audioPlayer.play()
     }
     
     @IBAction func resetButtonDidPress(_ sender: Any) {
         audioPlayer.replay()
-        audioPlayer.resetDefaultSettings()
+        resetSliders()
+    }
+    
+    func resetSliders() {
         pitchSlider.value = audioPlayer.pitchControl.pitch
         speedSlider.value = audioPlayer.speedControl.rate
         reverbSlider.value = audioPlayer.reverbControl.wetDryMix

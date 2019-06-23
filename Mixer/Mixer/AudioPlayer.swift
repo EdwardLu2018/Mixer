@@ -58,6 +58,7 @@ class AudioPlayer {
             
         }
         
+        player.volume = 1
         resetDefaultSettings()
         
         engine.attach(player)
@@ -73,7 +74,7 @@ class AudioPlayer {
         engine.connect(reverbControl, to: echoControl, format: buffer.format)
         engine.connect(echoControl, to: distortionControl, format: buffer.format)
         engine.connect(distortionControl, to: engine.mainMixerNode, format: buffer.format)
-
+        player.volume = 1
         player.scheduleBuffer(buffer, at:nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
         engine.prepare()
         
@@ -82,45 +83,9 @@ class AudioPlayer {
         } catch _ {
             
         }
-    }
-    
-    func changeSong(filename: String) {
-        player.stop()
-        
-        let path = Bundle.main.path(forResource: filename, ofType: "mp3")!
-        let url = NSURL.fileURL(withPath: path)
-        
-        audioFile = try? AVAudioFile(forReading: url)
-        songLengthSamples = audioFile.length
-        
-        let songFormat = audioFile.processingFormat
-        sampleRate = Float(songFormat.sampleRate)
-        lengthSongSeconds = Float(songLengthSamples) / sampleRate
-        startTime = 0
-        
-        let buffer = AVAudioPCMBuffer(pcmFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))!
-        do {
-            try audioFile!.read(into: buffer)
-        } catch _ {
-            
-        }
-        
-        resetDefaultSettings()
-        
-        player.scheduleBuffer(buffer, at:nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
-        engine.prepare()
-        
-        do {
-            try engine.start()
-        } catch _ {
-            
-        }
-        
     }
     
     func resetDefaultSettings() {
-        player.volume = 1
-        
         pitchControl.pitch = 0
         pitchControl.rate = 1
         pitchControl.overlap = 8
@@ -162,10 +127,6 @@ class AudioPlayer {
         player.play()
     }
     
-    func isPlaying() -> Bool {
-        return player.isPlaying
-    }
-    
     func getCurrentPosition() -> Float {
         if (player.isPlaying) {
             if let nodeTime = player.lastRenderTime, let playerTime = player.playerTime(forNodeTime: nodeTime) {
@@ -182,7 +143,7 @@ class AudioPlayer {
         let startSample = floor(time * sampleRate)
         let lengthSamples = Float(songLengthSamples) - startSample
         
-        player.scheduleSegment(audioFile, startingFrame: AVAudioFramePosition(startSample), frameCount: AVAudioFrameCount(lengthSamples), at: nil, completionHandler: nil)
+        player.scheduleSegment(audioFile, startingFrame: AVAudioFramePosition(startSample), frameCount: AVAudioFrameCount(lengthSamples), at: nil, completionHandler: {self.player.pause()})
         startTime = time
         
         player.play()

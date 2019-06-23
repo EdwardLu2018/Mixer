@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  MusicPlayer
+//  Mixer
 //
 //  Created by Edward on 6/9/19.
 //  Copyright © 2019 Edward. All rights reserved.
@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var replayToggleButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
     
-    var audioPlayer = AVAudioPlayer()
+    var audioPlayer: AudioPlayer!
+    
     var gradientLayer: CAGradientLayer!
     var singleTapGesture = UITapGestureRecognizer()
     var doubleTapGesture = UITapGestureRecognizer()
@@ -129,22 +130,7 @@ class ViewController: UIViewController {
         songLabel.text = songs[songIndex]
         Globals.currIndex = songIndex
         
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
-            audioPlayer.prepareToPlay()
-            
-            let audioSession = AVAudioSession.sharedInstance()
-            
-            do {
-                try audioSession.setCategory(AVAudioSession.Category.playback)
-            }
-            catch {
-                print(error)
-            }
-        }
-        catch {
-            print(error)
-        }
+        audioPlayer = AudioPlayer(filename: songs[songIndex])
     }
     
     func setUpGradient() {
@@ -203,21 +189,32 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-        durationLabel.text = "\(Int(round(audioPlayer.currentTime) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.currentTime)) % 60)) / \(Int(round(audioPlayer.duration) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.duration)) % 60))"
+        print(audioPlayer.getCurrentPosition())
+        durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
         
-        let fraction = audioPlayer.currentTime / audioPlayer.duration
-        slider.setValue(Float(fraction), animated: true)
+        slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
 
-        if replayToggleButton.isSelected && audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+        if replayToggleButton.isSelected && audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
             replayCurrSong()
         }
         else if songIndex != Globals.currIndex {
             songIndex = Globals.currIndex
             changeSongs()
         }
-        else if audioPlayer.currentTime > audioPlayer.duration - 0.25 {
+        else if audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
             songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
             changeSongs()
+        }
+        
+        if audioPlayer.isPlaying() {
+            if let image = UIImage(named: "pause-button") {
+                actionImage.image = image
+            }
+        }
+        else {
+            if let image = UIImage(named: "play-button") {
+                actionImage.image = image
+            }
         }
         
         if songVCVisible {
@@ -240,17 +237,11 @@ class ViewController: UIViewController {
     }
     
     func togglePausePlay() {
-        if audioPlayer.isPlaying {
+        if audioPlayer.isPlaying() {
             audioPlayer.pause()
-            if let image = UIImage(named: "play-button") {
-                actionImage.image = image
-            }
         }
         else {
             audioPlayer.play()
-            if let image = UIImage(named: "pause-button") {
-                actionImage.image = image
-            }
         }
     }
     
@@ -260,9 +251,7 @@ class ViewController: UIViewController {
     }
     
     func replayCurrSong() {
-        audioPlayer.stop()
-        audioPlayer.currentTime = 0
-        audioPlayer.play()
+        audioPlayer.replay()
     }
     
     @objc
@@ -278,16 +267,9 @@ class ViewController: UIViewController {
     }
     
     func changeSongs() {
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: songs[songIndex], ofType: "mp3")!))
-            audioPlayer.prepareToPlay()
-        }
-        catch {
-            print(error)
-        }
+        audioPlayer.changeSong(filename: songs[songIndex])
         songLabel.text = songs[songIndex]
         Globals.currIndex = songIndex
-        audioPlayer.currentTime = 0
         audioPlayer.play()
         if let image = UIImage(named: "pause-button") {
             actionImage.image = image
@@ -313,9 +295,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sliderDidSlide(_ sender: UISlider) {
-        audioPlayer.stop()
-        audioPlayer.currentTime = Double(sender.value) * audioPlayer.duration
-        audioPlayer.play()
+        print("slider: ", slider.value * audioPlayer.lengthSongSeconds)
+        audioPlayer.goTo(time: slider.value * audioPlayer.lengthSongSeconds)
     }
     
     @IBAction func didPressReplayButton(_ sender: UIButton) {
