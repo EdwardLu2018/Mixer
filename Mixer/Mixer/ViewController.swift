@@ -23,6 +23,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var songLabel: UILabel!
     @IBOutlet weak var replayToggleButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var speedSlider: CustomSlider!
+    @IBOutlet weak var pitchSlider: CustomSlider!
+    @IBOutlet weak var reverbSlider: CustomSlider!
+    @IBOutlet weak var echoSlider: CustomSlider!
+    @IBOutlet weak var distortionSlider: CustomSlider!
     
     var audioPlayer: AudioPlayer!
     
@@ -77,8 +82,7 @@ class ViewController: UIViewController {
         replayToggleButton.isSelected = false
         replayToggleButton.alpha = 0.25
         
-        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
-        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
+        setupSliderThumbs()
 
         setupAudio()
         setUpGradient()
@@ -108,6 +112,21 @@ class ViewController: UIViewController {
             }
         }
 
+    }
+    
+    func setupSliderThumbs() {
+        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .normal)
+        slider.setThumbImage(UIImage(named:"slider-thumb"), for: .highlighted)
+        speedSlider.setThumbImage(UIImage(named:"running-rabbit1"), for: .normal)
+        speedSlider.setThumbImage(UIImage(named:"running-rabbit1"), for: .highlighted)
+        pitchSlider.setThumbImage(UIImage(named:"tuning-fork"), for: .normal)
+        pitchSlider.setThumbImage(UIImage(named:"tuning-fork"), for: .highlighted)
+        reverbSlider.setThumbImage(UIImage(named:"reverb"), for: .normal)
+        reverbSlider.setThumbImage(UIImage(named:"reverb"), for: .highlighted)
+        echoSlider.setThumbImage(UIImage(named:"record-filled-echo"), for: .normal)
+        echoSlider.setThumbImage(UIImage(named:"record-filled-echo"), for: .highlighted)
+        distortionSlider.setThumbImage(UIImage(named:"audio-wave-white"), for: .normal)
+        distortionSlider.setThumbImage(UIImage(named:"audio-wave-white"), for: .highlighted)
     }
     
     func setupAudio() {
@@ -189,7 +208,6 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-        print(audioPlayer.getCurrentPosition())
         durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
         
         slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
@@ -275,6 +293,8 @@ class ViewController: UIViewController {
             actionImage.image = image
         }
         slider.setValue(0.0, animated: true)
+        audioPlayer.resetDefaultNodeSettings()
+        resetSliders()
     }
     
     @objc
@@ -295,8 +315,28 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sliderDidSlide(_ sender: UISlider) {
-        print("slider: ", slider.value * audioPlayer.lengthSongSeconds)
         audioPlayer.goTo(time: slider.value * audioPlayer.lengthSongSeconds)
+    }
+    
+    @IBAction func speedSliderDidSlide(_ sender: Any) {
+        audioPlayer.speedControl.rate = speedSlider.value
+    }
+    
+    @IBAction func pitchSliderDidSlide(_ sender: Any) {
+        audioPlayer.pitchControl.pitch = pitchSlider.value
+    }
+    
+    @IBAction func reverbSliderDidSlide(_ sender: Any) {
+        audioPlayer.reverbControl.wetDryMix = reverbSlider.value
+    }
+    
+    @IBAction func echoSliderDidSlide(_ sender: Any) {
+        audioPlayer.echoControl.delayTime = TimeInterval(echoSlider.value) * (2.0 / 100)
+        audioPlayer.echoControl.wetDryMix = echoSlider.value
+    }
+    
+    @IBAction func distortionSliderDidSlide(_ sender: Any) {
+        audioPlayer.distortionControl.wetDryMix = distortionSlider.value
     }
     
     @IBAction func didPressReplayButton(_ sender: UIButton) {
@@ -308,6 +348,19 @@ class ViewController: UIViewController {
         else {
             replayToggleButton.alpha = 0.25
         }
+    }
+    
+    @IBAction func didPressResetButton(_ sender: UIButton) {
+        audioPlayer.resetDefaultNodeSettings()
+        resetSliders()
+    }
+    
+    func resetSliders() {
+        pitchSlider.value = audioPlayer.pitchControl.pitch
+        speedSlider.value = audioPlayer.speedControl.rate
+        reverbSlider.value = audioPlayer.reverbControl.wetDryMix
+        echoSlider.value = Float(audioPlayer.echoControl.delayTime)
+        distortionSlider.value = audioPlayer.distortionControl.wetDryMix
     }
     
     func nextSongVCState() -> SongVCState {

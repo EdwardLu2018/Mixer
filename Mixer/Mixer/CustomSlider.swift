@@ -17,6 +17,12 @@ class CustomSlider: UISlider {
         }
     }
     
+    @IBInspectable var cornerRadius: CGFloat = 1 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     override open func trackRect(forBounds bounds: CGRect) -> CGRect {
         let defaultBounds = super.trackRect(forBounds: bounds)
         return CGRect(

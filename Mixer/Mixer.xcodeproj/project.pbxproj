@@ -55,6 +55,8 @@
 		2BE0E7CA22BB1165000221D4 /* What You Know.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7C922BB1165000221D4 /* What You Know.mp3 */; };
 		2BE0E7D322BD15DF000221D4 /* Panini.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7D122BD15DF000221D4 /* Panini.mp3 */; };
 		2BE0E7D422BD15DF000221D4 /* All Alone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */; };
+		2BE1FA8B22C0050C00DBA1D7 /* Treasure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */; };
+		2BE1FA8D22C0051500DBA1D7 /* Reach Out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */; };
 		2BEC3F1B22BF245F00AEEFED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */; };
 		2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */; };
 		2BF53B6D22B4889B00ECAE8E /* Sanctuary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */; };
@@ -136,6 +138,8 @@
 		2BE0E7C922BB1165000221D4 /* What You Know.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "What You Know.mp3"; sourceTree = "<group>"; };
 		2BE0E7D122BD15DF000221D4 /* Panini.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Panini.mp3; sourceTree = "<group>"; };
 		2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "All Alone.mp3"; sourceTree = "<group>"; };
+		2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Treasure.mp3; sourceTree = "<group>"; };
+		2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Reach Out.mp3"; sourceTree = "<group>"; };
 		2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioPlayer.swift; path = ../../AudioEnginePlayer/AudioEnginePlayer/AudioPlayer.swift; sourceTree = "<group>"; };
 		2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C7osure.mp3; sourceTree = "<group>"; };
 		2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sanctuary.mp3; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */,
+				2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */,
 				2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */,
 				2BD08C8C22BE974E00282C25 /* Lisa Baby.mp3 */,
 				2BD08C8A22BE974E00282C25 /* Portugal.mp3 */,
@@ -354,6 +360,7 @@
 				2BF53BEE22B8552300ECAE8E /* The Glitzy Hive.mp3 in Resources */,
 				2B9B90AC22AE134D0027874A /* Time Of Our Lives.mp3 in Resources */,
 				2B9B90AE22AE134D0027874A /* The Sound.mp3 in Resources */,
+				2BE1FA8D22C0051500DBA1D7 /* Reach Out.mp3 in Resources */,
 				2BF53BD122B55CBE00ECAE8E /* Love Again.mp3 in Resources */,
 				2B9B911822AF321E0027874A /* First Kiss.mp3 in Resources */,
 				2B9B90B422AE134D0027874A /* UGH!.mp3 in Resources */,
@@ -375,6 +382,7 @@
 				2BF53BE822B6A2CB00ECAE8E /* The Sun.mp3 in Resources */,
 				2BF53BDE22B5E1CA00ECAE8E /* Rose-Colored Boy.mp3 in Resources */,
 				2BD08C9022BE974E00282C25 /* Lisa Baby.mp3 in Resources */,
+				2BE1FA8B22C0050C00DBA1D7 /* Treasure.mp3 in Resources */,
 				2BF53BDA22B55CBE00ECAE8E /* Ain't It Fun.mp3 in Resources */,
 				2BE0E7C622BB0FDA000221D4 /* Undercover Martyn.mp3 in Resources */,
 				2BD08C8E22BE974E00282C25 /* Portugal.mp3 in Resources */,
