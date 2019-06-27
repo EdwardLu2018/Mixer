@@ -85,6 +85,8 @@
 		2BF53BEC22B6C05100ECAE8E /* Everyone Acts Crazy Nowadays.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BEB22B6C05100ECAE8E /* Everyone Acts Crazy Nowadays.mp3 */; };
 		2BF53BEE22B8552300ECAE8E /* The Glitzy Hive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BED22B8552300ECAE8E /* The Glitzy Hive.mp3 */; };
 		2BF53BF022B85EC600ECAE8E /* Wait a Minute!.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BEF22B85EC600ECAE8E /* Wait a Minute!.mp3 */; };
+		2BF7CA8A22C44BC400313A63 /* Tints.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF7CA8922C44BC400313A63 /* Tints.mp3 */; };
+		2BFF376522C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BFF376422C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +170,8 @@
 		2BF53BEB22B6C05100ECAE8E /* Everyone Acts Crazy Nowadays.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Everyone Acts Crazy Nowadays.mp3"; sourceTree = "<group>"; };
 		2BF53BED22B8552300ECAE8E /* The Glitzy Hive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "The Glitzy Hive.mp3"; sourceTree = "<group>"; };
 		2BF53BEF22B85EC600ECAE8E /* Wait a Minute!.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Wait a Minute!.mp3"; sourceTree = "<group>"; };
+		2BF7CA8922C44BC400313A63 /* Tints.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tints.mp3; sourceTree = "<group>"; };
+		2BFF376422C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Take Your Time (Do It Right).mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,8 @@
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2BF7CA8922C44BC400313A63 /* Tints.mp3 */,
+				2BFF376422C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 */,
 				2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */,
 				2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */,
 				2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */,
@@ -390,6 +396,7 @@
 				2BF53BE622B69DB400ECAE8E /* Fall In Love With Me.mp3 in Resources */,
 				2B9B909222AE0F530027874A /* Letting Go.mp3 in Resources */,
 				2B9B912222B08E090027874A /* Trampoline.mp3 in Resources */,
+				2BFF376522C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 in Resources */,
 				2B9B909A22AE11080027874A /* Want You In My Room.mp3 in Resources */,
 				2BF53BB722B48EF600ECAE8E /* 4EVER.mp3 in Resources */,
 				2B9B906522AD6D290027874A /* LaunchScreen.storyboard in Resources */,
@@ -408,6 +415,7 @@
 				2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */,
 				2BF53BE422B69B8B00ECAE8E /* Portable Radio.mp3 in Resources */,
 				2B9B911422AF31E00027874A /* Spanish Bay.mp3 in Resources */,
+				2BF7CA8A22C44BC400313A63 /* Tints.mp3 in Resources */,
 				2B9B909822AE11080027874A /* I'll Be Your Girl.mp3 in Resources */,
 				2BF53BDC22B5E1A900ECAE8E /* Caught In The Middle.mp3 in Resources */,
 				2BF53BE022B5E1E200ECAE8E /* She's American.mp3 in Resources */,

@@ -104,17 +104,19 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 0.5) {
-            self.songLabel.center.y += self.view.bounds.height
-        }
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: [],
-        animations: {
-            self.resetButton.center.y -= self.view.bounds.height
-            self.speedSlider.center.x += (self.view.bounds.width + self.speedSlider.bounds.width/2)
-            self.pitchSlider.center.x -= (self.view.bounds.width + self.pitchSlider.bounds.width/2)
-            self.reverbSlider.center.x += (self.view.bounds.width + self.reverbSlider.bounds.width/2)
-            self.echoSlider.center.x -= (self.view.bounds.width + self.echoSlider.bounds.width/2)
-            self.distortionSlider.center.x += (self.view.bounds.width + self.distortionSlider.bounds.width/2)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
+            animations: {
+                self.songLabel.center.y += self.view.bounds.height
+        },
+        completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
+            animations: {
+                self.resetButton.center.y -= self.view.bounds.height
+                self.speedSlider.center.x += (self.view.bounds.width + self.speedSlider.bounds.width/2)
+                self.pitchSlider.center.x -= (self.view.bounds.width + self.pitchSlider.bounds.width/2)
+                self.reverbSlider.center.x += (self.view.bounds.width + self.reverbSlider.bounds.width/2)
+                self.echoSlider.center.x -= (self.view.bounds.width + self.echoSlider.bounds.width/2)
+                self.distortionSlider.center.x += (self.view.bounds.width + self.distortionSlider.bounds.width/2)
         },
         completion: nil)
     }
@@ -295,6 +297,16 @@ class ViewController: UIViewController {
         replayCurrSong()
     }
     
+    @objc
+    func didSingleTapTableView(_ sender: UITapGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            animateTransitionIfNeeded(state: nextSongVCState(), duration: 1)
+        default:
+            break
+        }
+    }
+    
     func replayCurrSong() {
         audioPlayer.replay()
     }
@@ -303,9 +315,11 @@ class ViewController: UIViewController {
     func didSwipeLeft() {
         songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
         songLabel.center.x += view.frame.width
-        UIView.animate(withDuration: 0.5) {
-            self.songLabel.center.x -= self.view.frame.width
-        }
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
+            animations: {
+                self.songLabel.center.x -= self.view.frame.width
+        },
+        completion: nil)
         changeSongs()
     }
     
@@ -313,9 +327,11 @@ class ViewController: UIViewController {
     func didSwipeRight() {
         songIndex = (songIndex - 1) >= 0 ? (songIndex - 1) : (songs.count - 1)
         songLabel.center.x -= view.frame.width
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
+                       animations: {
             self.songLabel.center.x += self.view.frame.width
-        }
+        },
+        completion: nil)
         changeSongs()
     }
     
