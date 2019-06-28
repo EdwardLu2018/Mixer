@@ -31,35 +31,22 @@ class AudioPlayer {
     private var currentPosition = Float()
     
     init(filename: String) {
-        let path = Bundle.main.path(forResource: filename, ofType: "mp3")!
-        let url = NSURL.fileURL(withPath: path)
-        
-        audioFile = try? AVAudioFile(forReading: url)
-        songLengthSamples = audioFile.length
-        
-        let songFormat = audioFile.processingFormat
-        sampleRate = Float(songFormat.sampleRate)
-        lengthSongSeconds = Float(songLengthSamples) / sampleRate
-        
-        let buffer = AVAudioPCMBuffer(pcmFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))!
+        let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioFile!.read(into: buffer)
-            
-            let audioSession = AVAudioSession.sharedInstance()
-            
-            do {
-                try audioSession.setCategory(AVAudioSession.Category.playback)
-            }
-            catch {
-                print(error)
-            }
-            
-        } catch _ {
-            
+            try audioSession.setCategory(AVAudioSession.Category.playback)
+        }
+        catch {
+            print(error)
         }
         
-        resetDefaultSettings()
-        
+        let buffer = createBuffer(filename: filename)
+        readBuffer(buffer: buffer)
+        resetDefaultNodeSettings()
+        attachAndConnectNodes(buffer: buffer)
+        scheduleBuffer(buffer: buffer)
+    }
+    
+    private func attachAndConnectNodes(buffer: AVAudioPCMBuffer) {
         engine.attach(player)
         engine.attach(pitchControl)
         engine.attach(speedControl)
@@ -73,20 +60,17 @@ class AudioPlayer {
         engine.connect(reverbControl, to: echoControl, format: buffer.format)
         engine.connect(echoControl, to: distortionControl, format: buffer.format)
         engine.connect(distortionControl, to: engine.mainMixerNode, format: buffer.format)
-
-        player.scheduleBuffer(buffer, at:nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
-        engine.prepare()
-        
-        do {
-            try engine.start()
-        } catch _ {
-            
-        }
     }
     
     func changeSong(filename: String) {
-        player.stop()
-        
+        player.pause()
+        let buffer = createBuffer(filename: filename)
+        readBuffer(buffer: buffer)
+        resetDefaultNodeSettings()
+        scheduleBuffer(buffer: buffer)
+    }
+    
+    private func createBuffer(filename: String) -> AVAudioPCMBuffer {
         let path = Bundle.main.path(forResource: filename, ofType: "mp3")!
         let url = NSURL.fileURL(withPath: path)
         
@@ -99,26 +83,30 @@ class AudioPlayer {
         startTime = 0
         
         let buffer = AVAudioPCMBuffer(pcmFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))!
+        return buffer
+    }
+    
+    private func readBuffer(buffer: AVAudioPCMBuffer) {
         do {
             try audioFile!.read(into: buffer)
-        } catch _ {
-            
+        } catch {
+            print(error)
         }
-        
-        resetDefaultSettings()
-        
-        player.scheduleBuffer(buffer, at:nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
+    }
+    
+    private func scheduleBuffer(buffer: AVAudioPCMBuffer) {
+        player.stop()
+        player.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
         engine.prepare()
         
         do {
             try engine.start()
-        } catch _ {
-            
+        } catch {
+            print(error)
         }
-        
     }
-    
-    func resetDefaultSettings() {
+
+    func resetDefaultNodeSettings() {
         player.volume = 1
         
         pitchControl.pitch = 0
