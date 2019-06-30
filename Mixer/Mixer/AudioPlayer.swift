@@ -157,7 +157,7 @@ class AudioPlayer {
     }
     
     func isPlaying() -> Bool {
-        return player.isPlaying
+        return player.isPlaying && engine.isRunning
     }
     
     func getCurrentPosition() -> Float {
