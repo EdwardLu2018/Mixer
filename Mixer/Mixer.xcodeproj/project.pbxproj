@@ -57,7 +57,7 @@
 		2BE0E7D422BD15DF000221D4 /* All Alone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */; };
 		2BE1FA8B22C0050C00DBA1D7 /* Treasure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */; };
 		2BE1FA8D22C0051500DBA1D7 /* Reach Out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */; };
-		2BEC3F1B22BF245F00AEEFED /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */; };
+		2BE7A8AD22C847640032F1C0 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */; };
 		2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */; };
 		2BF53B6D22B4889B00ECAE8E /* Sanctuary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */; };
 		2BF53BB322B48EF600ECAE8E /* Make Believe.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */; };
@@ -142,7 +142,7 @@
 		2BE0E7D222BD15DF000221D4 /* All Alone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "All Alone.mp3"; sourceTree = "<group>"; };
 		2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Treasure.mp3; sourceTree = "<group>"; };
 		2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Reach Out.mp3"; sourceTree = "<group>"; };
-		2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioPlayer.swift; path = ../../AudioEnginePlayer/AudioEnginePlayer/AudioPlayer.swift; sourceTree = "<group>"; };
+		2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C7osure.mp3; sourceTree = "<group>"; };
 		2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sanctuary.mp3; sourceTree = "<group>"; };
 		2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Make Believe.mp3"; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 			children = (
 				2B9B905A22AD6D270027874A /* AppDelegate.swift */,
 				2B9B907322ADBF8F0027874A /* CustomSlider.swift */,
-				2BEC3F1A22BF245F00AEEFED /* AudioPlayer.swift */,
+				2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */,
 				2B9B905C22AD6D270027874A /* ViewController.swift */,
 				2B9B911122AF2FF70027874A /* SongViewController.swift */,
 				2B9B911922AF41BB0027874A /* SongTableViewCell.swift */,
@@ -449,7 +449,7 @@
 				2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */,
 				2B9B907422ADBF8F0027874A /* CustomSlider.swift in Sources */,
 				2B9B905B22AD6D270027874A /* AppDelegate.swift in Sources */,
-				2BEC3F1B22BF245F00AEEFED /* AudioPlayer.swift in Sources */,
+				2BE7A8AD22C847640032F1C0 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
