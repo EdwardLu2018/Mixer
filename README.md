@@ -1,7 +1,9 @@
 # Mixer
 
-## Screenshot:
-![screenshot](/images/screenshot1.jpg)
+## Screenshots:
+Mixer                         |  MusicPlayer
+:----------------------------:|:-------------------------:
+![mixer screenshot](/images/screenshot1.jpg)  |  ![musicplayer screenshot](/images/screenshot.jpg)
 
 ## Features:
 - Pause and play audio
