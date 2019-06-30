@@ -12,6 +12,7 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var swipeUpImage: UIImageView!
     
     var currTableIndex = Globals.currIndex
     

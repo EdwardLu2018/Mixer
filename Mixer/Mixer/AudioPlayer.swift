@@ -95,7 +95,7 @@ class AudioPlayer {
     
     private func scheduleBuffer(buffer: AVAudioPCMBuffer) {
         player.stop()
-        player.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
+        player.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions.interrupts, completionHandler: nil)
         startEngine()
     }
     

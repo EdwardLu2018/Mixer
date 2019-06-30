@@ -271,6 +271,7 @@
                     </view>
                     <connections>
                         <outlet property="handleArea" destination="d63-mw-Bdv" id="6BU-QH-87C"/>
+                        <outlet property="swipeUpImage" destination="z0I-sl-TaN" id="Qg1-BP-PoJ"/>
                         <outlet property="tableView" destination="fya-eW-5Ae" id="EPu-iZ-Glp"/>
                     </connections>
                 </viewController>

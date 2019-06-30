@@ -186,7 +186,7 @@ class ViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
 //        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 //        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor]
+        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor, lightGreen.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -446,7 +446,7 @@ class ViewController: UIViewController {
             cornerRadiusAnimator.startAnimation()
             runningAnimations.append(cornerRadiusAnimator)
             
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.9) {
+            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
                     self.visualEffectView.effect = UIBlurEffect(style: .dark)
@@ -457,6 +457,17 @@ class ViewController: UIViewController {
             }
             blurAnimator.startAnimation()
             runningAnimations.append(blurAnimator)
+            
+            let rotateAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.songViewController.swipeUpImage.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+                case .collapsed:
+                    self.songViewController.swipeUpImage.transform = CGAffineTransform(rotationAngle: 0)
+                }
+            }
+            rotateAnimator.startAnimation()
+            runningAnimations.append(rotateAnimator)
         }
     }
     
