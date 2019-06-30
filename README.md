@@ -1,18 +1,20 @@
 # Mixer
 
 ## Screenshot:
-![screenshot](/images/screenshot.jpg)
+![screenshot](/images/screenshot1.jpg)
 
 ## Features:
 - Pause and play audio
 - Swipe left and right to change songs
 - Double tap to replay
 - Drag tableview up to choose songs
+- Change audio speed and pitch
+- Add reverb, echo, and distortion
 
 ## To do:
 - [x] Choose songs from tableview
 - [x] Add toggle replay button
 - [X] Use AVAudioEngine and AVAudioNodes to control audio output
 - [X] Use AVAudioNodes to control pitch, speed, reverb, and echo
-- [ ] Volume control with MPVolumeView
-- [ ] Integrate AVAudioEnginePlayer with MusicPlayer
+- [X] Integrate AVAudioEnginePlayer with MusicPlayer
+- [ ] Volume control with MPVolumeView?
