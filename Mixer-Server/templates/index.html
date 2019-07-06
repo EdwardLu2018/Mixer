@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+</head>
+<body>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <label for="inputFile">File input</label>
+        <input type="file" name="inputFile" multiple>
+        <button type="submit">Submit</button>
+    </form>
+    <form method="POST" action="/download" enctype="multipart/form-data">
+        <label for="inputFile">Download file</label>
+        <input type="text" name="fileName">
+        <button type="submit">Submit</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
