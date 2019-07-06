@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2A043222D0618C00CBB1D0 /* Invitations.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A043122D0618C00CBB1D0 /* Invitations.mp3 */; };
+		2B2A043422D0621F00CBB1D0 /* When Love Breaks Down.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A043322D0621F00CBB1D0 /* When Love Breaks Down.mp3 */; };
+		2B5D970822D0F84800655CE7 /* Feelings of Sentimentality Due to Getting Curved.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2B5D970722D0F84700655CE7 /* Feelings of Sentimentality Due to Getting Curved.mp3 */; };
 		2B9B905B22AD6D270027874A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B905A22AD6D270027874A /* AppDelegate.swift */; };
 		2B9B905D22AD6D270027874A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B905C22AD6D270027874A /* ViewController.swift */; };
 		2B9B906022AD6D270027874A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9B905E22AD6D270027874A /* Main.storyboard */; };
@@ -58,6 +61,11 @@
 		2BE1FA8B22C0050C00DBA1D7 /* Treasure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */; };
 		2BE1FA8D22C0051500DBA1D7 /* Reach Out.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */; };
 		2BE7A8AD22C847640032F1C0 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */; };
+		2BE7A8B022C924C40032F1C0 /* Chiclete Com Banana.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7A8AE22C924C40032F1C0 /* Chiclete Com Banana.mp3 */; };
+		2BE7A8B522C925110032F1C0 /* Germaine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7A8B422C925110032F1C0 /* Germaine.mp3 */; };
+		2BE7A8B722CE8C450032F1C0 /* Ma Quale Idea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7A8B622CE8C440032F1C0 /* Ma Quale Idea.mp3 */; };
+		2BE7A8B922CE8C760032F1C0 /* Automatically In Love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7A8B822CE8C760032F1C0 /* Automatically In Love.mp3 */; };
+		2BE7A8BB22CE8CA40032F1C0 /* Now That I Found You.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7A8BA22CE8CA40032F1C0 /* Now That I Found You.mp3 */; };
 		2BEC3F2322BF2A4100AEEFED /* C7osure.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */; };
 		2BF53B6D22B4889B00ECAE8E /* Sanctuary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */; };
 		2BF53BB322B48EF600ECAE8E /* Make Believe.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */; };
@@ -90,6 +98,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B2A043122D0618C00CBB1D0 /* Invitations.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Invitations.mp3; sourceTree = "<group>"; };
+		2B2A043322D0621F00CBB1D0 /* When Love Breaks Down.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "When Love Breaks Down.mp3"; sourceTree = "<group>"; };
+		2B5D970722D0F84700655CE7 /* Feelings of Sentimentality Due to Getting Curved.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Feelings of Sentimentality Due to Getting Curved.mp3"; sourceTree = "<group>"; };
 		2B9B905722AD6D270027874A /* Mixer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B9B905A22AD6D270027874A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B9B905C22AD6D270027874A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +154,11 @@
 		2BE1FA8A22C0050C00DBA1D7 /* Treasure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Treasure.mp3; sourceTree = "<group>"; };
 		2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Reach Out.mp3"; sourceTree = "<group>"; };
 		2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		2BE7A8AE22C924C40032F1C0 /* Chiclete Com Banana.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Chiclete Com Banana.mp3"; sourceTree = "<group>"; };
+		2BE7A8B422C925110032F1C0 /* Germaine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Germaine.mp3; sourceTree = "<group>"; };
+		2BE7A8B622CE8C440032F1C0 /* Ma Quale Idea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ma Quale Idea.mp3"; sourceTree = "<group>"; };
+		2BE7A8B822CE8C760032F1C0 /* Automatically In Love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Automatically In Love.mp3"; sourceTree = "<group>"; };
+		2BE7A8BA22CE8CA40032F1C0 /* Now That I Found You.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Now That I Found You.mp3"; sourceTree = "<group>"; };
 		2BEC3F2222BF2A4100AEEFED /* C7osure.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C7osure.mp3; sourceTree = "<group>"; };
 		2BF53B6C22B4889A00ECAE8E /* Sanctuary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sanctuary.mp3; sourceTree = "<group>"; };
 		2BF53BAC22B48EF600ECAE8E /* Make Believe.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Make Believe.mp3"; sourceTree = "<group>"; };
@@ -222,6 +238,14 @@
 		2B9B906C22AD6E6B0027874A /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				2B5D970722D0F84700655CE7 /* Feelings of Sentimentality Due to Getting Curved.mp3 */,
+				2B2A043322D0621F00CBB1D0 /* When Love Breaks Down.mp3 */,
+				2B2A043122D0618C00CBB1D0 /* Invitations.mp3 */,
+				2BE7A8BA22CE8CA40032F1C0 /* Now That I Found You.mp3 */,
+				2BE7A8B822CE8C760032F1C0 /* Automatically In Love.mp3 */,
+				2BE7A8B622CE8C440032F1C0 /* Ma Quale Idea.mp3 */,
+				2BE7A8B422C925110032F1C0 /* Germaine.mp3 */,
+				2BE7A8AE22C924C40032F1C0 /* Chiclete Com Banana.mp3 */,
 				2BF7CA8922C44BC400313A63 /* Tints.mp3 */,
 				2BFF376422C1B8AC0061CA4A /* Take Your Time (Do It Right).mp3 */,
 				2BE1FA8C22C0051400DBA1D7 /* Reach Out.mp3 */,
@@ -360,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B5D970822D0F84800655CE7 /* Feelings of Sentimentality Due to Getting Curved.mp3 in Resources */,
 				2BE0E7C822BB0FE5000221D4 /* Dreaming.mp3 in Resources */,
 				2BF53BEA22B6A47400ECAE8E /* Get Down Saturday Night.mp3 in Resources */,
 				2BE0E7D322BD15DF000221D4 /* Panini.mp3 in Resources */,
@@ -386,6 +411,7 @@
 				2B9B912322B08E090027874A /* Fish Bowl.mp3 in Resources */,
 				2BF53BB822B48EF600ECAE8E /* Buttercup.mp3 in Resources */,
 				2BF53BE822B6A2CB00ECAE8E /* The Sun.mp3 in Resources */,
+				2BE7A8B022C924C40032F1C0 /* Chiclete Com Banana.mp3 in Resources */,
 				2BF53BDE22B5E1CA00ECAE8E /* Rose-Colored Boy.mp3 in Resources */,
 				2BD08C9022BE974E00282C25 /* Lisa Baby.mp3 in Resources */,
 				2BE1FA8B22C0050C00DBA1D7 /* Treasure.mp3 in Resources */,
@@ -393,6 +419,8 @@
 				2BE0E7C622BB0FDA000221D4 /* Undercover Martyn.mp3 in Resources */,
 				2BD08C8E22BE974E00282C25 /* Portugal.mp3 in Resources */,
 				2B9B90D322AE90270027874A /* Chocolate.mp3 in Resources */,
+				2BE7A8B522C925110032F1C0 /* Germaine.mp3 in Resources */,
+				2BE7A8B922CE8C760032F1C0 /* Automatically In Love.mp3 in Resources */,
 				2BF53BE622B69DB400ECAE8E /* Fall In Love With Me.mp3 in Resources */,
 				2B9B909222AE0F530027874A /* Letting Go.mp3 in Resources */,
 				2B9B912222B08E090027874A /* Trampoline.mp3 in Resources */,
@@ -406,6 +434,8 @@
 				2B9B909922AE11080027874A /* Julien.mp3 in Resources */,
 				2B9B90B122AE134D0027874A /* Bennie And The Jets.mp3 in Resources */,
 				2BF53BE222B6992300ECAE8E /* Stay By Me.mp3 in Resources */,
+				2BE7A8BB22CE8CA40032F1C0 /* Now That I Found You.mp3 in Resources */,
+				2B2A043422D0621F00CBB1D0 /* When Love Breaks Down.mp3 in Resources */,
 				2B9B90D722AE90270027874A /* Summertime Gladness.mp3 in Resources */,
 				2BD08C8F22BE974E00282C25 /* Tightrope.mp3 in Resources */,
 				2B9B912122B08E090027874A /* Time Today.mp3 in Resources */,
@@ -425,8 +455,10 @@
 				2B9B906022AD6D270027874A /* Main.storyboard in Resources */,
 				2B9B909122AE0F530027874A /* Movies.mp3 in Resources */,
 				2B9B909322AE0F530027874A /* Fantasy.mp3 in Resources */,
+				2B2A043222D0618C00CBB1D0 /* Invitations.mp3 in Resources */,
 				2B9B912422B08E090027874A /* Picture This.mp3 in Resources */,
 				2B9B90B022AE134D0027874A /* We Own The Night.mp3 in Resources */,
+				2BE7A8B722CE8C450032F1C0 /* Ma Quale Idea.mp3 in Resources */,
 				2B9B90D522AE90270027874A /* Heart Out.mp3 in Resources */,
 				2BF53BD622B55CBE00ECAE8E /* Hard Times.mp3 in Resources */,
 				2B9B90B222AE134D0027874A /* Everybody Wants To Rule The World.mp3 in Resources */,

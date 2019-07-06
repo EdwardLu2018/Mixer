@@ -186,7 +186,7 @@ class ViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
 //        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 //        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor, lightGreen.cgColor]
+        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
