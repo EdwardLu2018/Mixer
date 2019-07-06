@@ -19,4 +19,4 @@ Mixer                         |  MusicPlayer
 - [X] Use AVAudioEngine and AVAudioNodes to control audio output
 - [X] Use AVAudioNodes to control pitch, speed, reverb, and echo
 - [X] Integrate AVAudioEnginePlayer with MusicPlayer
-- [ ] Volume control with MPVolumeView?
+- [ ] Create web server and database to store .mp3 files to save storage on mobile device
