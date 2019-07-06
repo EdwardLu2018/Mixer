@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     
     var filemanager = FileManager.default
     var songs = [String]()
+    var playedSongs = Set<String>()
     var songIndex = 0
     
     weak var timer: Timer?
@@ -170,8 +171,8 @@ class ViewController: UIViewController {
     
     func setupAudio() {
         songs = songs.sorted()
-        Globals.songs = songs
-        songLabel.text = songs[songIndex]
+        Globals.songs = songs.map{ $0.components(separatedBy: ".mp3")[0] }
+        songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
         Globals.currIndex = songIndex
         getSong(songs.first!)
     }
@@ -231,15 +232,20 @@ class ViewController: UIViewController {
     }
     
     func getSong(_ name: String) {
-        let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-        
-        let url = "https://mixerserver.herokuapp.com/download"
-        
-        let parameters = [
-            "fileName": name.components(separatedBy: ".")[0]
-        ]
-        
-        Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).responseData { response in
+        if !playedSongs.contains(name) {
+            let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+            
+            let url = "https://mixerserver.herokuapp.com/download"
+            
+            let parameters = [
+                "fileName": name.components(separatedBy: ".")[0]
+            ]
+            
+            Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).responseData { response in
+                self.playSong(name)
+            }
+        }
+        else {
             self.playSong(name)
         }
     }
@@ -251,6 +257,7 @@ class ViewController: UIViewController {
             if !fileURLs.isEmpty {
                 for fileurl in fileURLs {
                     if fileurl.lastPathComponent == name {
+                        playedSongs.insert(name)
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
                     }
@@ -278,6 +285,8 @@ class ViewController: UIViewController {
             }
             else if audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
                 songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+                audioPlayer.currentPosition = 0
+                durationLabel.text = "Loading..."
                 changeSongs()
             }
             
@@ -375,10 +384,10 @@ class ViewController: UIViewController {
     }
     
     func changeSongs() {
+        audioPlayer.stop()
         getSong(songs[songIndex])
-        songLabel.text = songs[songIndex]
+        songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
         Globals.currIndex = songIndex
-        audioPlayer.play()
         if let image = UIImage(named: "pause-button") {
             actionImage.image = image
         }

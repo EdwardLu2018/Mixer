@@ -28,7 +28,7 @@ class AudioPlayer {
     let echoControl = AVAudioUnitDelay()
     let distortionControl = AVAudioUnitDistortion()
     
-    private var currentPosition = Float()
+    var currentPosition = Float()
     
     init(fileurl: URL) {
         let audioSession = AVAudioSession.sharedInstance()
