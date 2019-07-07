@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     
     var filemanager = FileManager.default
     var songs = [String]()
+    var toRemove = String()
     var playedSongs = Set<String>()
     var songIndex = 0
     
@@ -124,6 +125,7 @@ class ViewController: UIViewController {
         group.notify(queue: .main) {
             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
             
+            self.durationLabel.text = "Loading..."
             self.replayToggleButton.isSelected = false
             self.replayToggleButton.alpha = 0.25
             
@@ -238,7 +240,7 @@ class ViewController: UIViewController {
             let url = "https://mixerserver.herokuapp.com/download"
             
             let parameters = [
-                "fileName": name.components(separatedBy: ".")[0]
+                "fileName": name.components(separatedBy: ".mp3")[0]
             ]
             
             Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).responseData { response in
@@ -254,13 +256,19 @@ class ViewController: UIViewController {
         let documentsURL = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
             let fileURLs = try filemanager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+//            print(fileURLs)
             if !fileURLs.isEmpty {
                 for fileurl in fileURLs {
-                    if fileurl.lastPathComponent == name {
+                    if fileurl.pathExtension != "mp3" { // || fileurl.lastPathComponent == toRemove {
+                        try filemanager.removeItem(at: fileurl)
+                    }
+                    else if fileurl.lastPathComponent == name {
                         playedSongs.insert(name)
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
                     }
+                    playedSongs.insert(fileurl.lastPathComponent)
+//                    toRemove = ""
                 }
             }
         }
@@ -271,6 +279,12 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
+//        print(playedSongs)
+//        if playedSongs.count > 5 {
+//            if let removed = playedSongs.remove(playedSongs.first!) {
+//                toRemove = removed
+//            }
+//        }
         if audioPlayer != nil {
             durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
             
@@ -286,7 +300,6 @@ class ViewController: UIViewController {
             else if audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
                 songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
                 audioPlayer.currentPosition = 0
-                durationLabel.text = "Loading..."
                 changeSongs()
             }
             
@@ -302,7 +315,6 @@ class ViewController: UIViewController {
             }
         }
         else {
-            durationLabel.text = "Loading..."
             if let image = UIImage(named: "play-button") {
                 actionImage.image = image
             }
