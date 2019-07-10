@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     var filemanager = FileManager.default
     var songs = [String]()
     var toRemove = String()
-    var playedSongs = Set<String>()
+    var playedSongs = [URL]()
     var songIndex = 0
     
     weak var timer: Timer?
@@ -234,7 +234,11 @@ class ViewController: UIViewController {
     }
     
     func getSong(_ name: String) {
-        if !playedSongs.contains(name) {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = URL(fileURLWithPath: path)
+        let filePath = url.appendingPathComponent(name).path
+        
+        if !filemanager.fileExists(atPath: filePath) {
             let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
             
             let url = "https://mixerserver.herokuapp.com/download"
@@ -256,20 +260,25 @@ class ViewController: UIViewController {
         let documentsURL = filemanager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
             let fileURLs = try filemanager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-//            print(fileURLs)
             if !fileURLs.isEmpty {
                 for fileurl in fileURLs {
-                    if fileurl.pathExtension != "mp3" { // || fileurl.lastPathComponent == toRemove {
+//                    print(playedSongs)
+                    if fileurl.pathExtension != "mp3" {
                         try filemanager.removeItem(at: fileurl)
                     }
                     else if fileurl.lastPathComponent == name {
-                        playedSongs.insert(name)
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
                     }
-                    playedSongs.insert(fileurl.lastPathComponent)
-//                    toRemove = ""
+                    if playedSongs.count > 5 {
+                        try filemanager.removeItem(at: playedSongs.removeFirst())
+                    }
+                    else if !playedSongs.contains(fileurl) {
+                        playedSongs.append(fileurl)
+                    }
                 }
+                print(fileURLs, playedSongs)
+                print()
             }
         }
         catch {
@@ -279,12 +288,6 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-//        print(playedSongs)
-//        if playedSongs.count > 5 {
-//            if let removed = playedSongs.remove(playedSongs.first!) {
-//                toRemove = removed
-//            }
-//        }
         if audioPlayer != nil {
             durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
             
@@ -396,7 +399,9 @@ class ViewController: UIViewController {
     }
     
     func changeSongs() {
-        audioPlayer.stop()
+        if audioPlayer != nil {
+            audioPlayer.stop()
+        }
         getSong(songs[songIndex])
         songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
         Globals.currIndex = songIndex
