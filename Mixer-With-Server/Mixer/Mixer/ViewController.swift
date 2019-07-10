@@ -111,6 +111,8 @@ class ViewController: UIViewController {
         self.setupSliderThumbs()
         self.setUpGradient()
         self.setupGuestures()
+        self.songLabel.text = "Loading..."
+        self.durationLabel.text = ""
         
         let url = "https://mixerserver.herokuapp.com/dbcontents"
         
@@ -125,7 +127,6 @@ class ViewController: UIViewController {
         group.notify(queue: .main) {
             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
             
-            self.durationLabel.text = "Loading..."
             self.replayToggleButton.isSelected = false
             self.replayToggleButton.alpha = 0.25
             
@@ -239,6 +240,7 @@ class ViewController: UIViewController {
         let filePath = url.appendingPathComponent(name).path
         
         if !filemanager.fileExists(atPath: filePath) {
+            self.songLabel.text = "Loading..."
             let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
             
             let url = "https://mixerserver.herokuapp.com/download"
@@ -248,7 +250,14 @@ class ViewController: UIViewController {
             ]
             
             Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).responseData { response in
-                self.playSong(name)
+                switch response.result {
+                case .success:
+                    self.playSong(name)
+                    break
+                case .failure:
+                    self.songLabel.text = "Failed to download song.\nPlease try again."
+                    break
+                }
             }
         }
         else {
@@ -270,6 +279,7 @@ class ViewController: UIViewController {
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
                     }
+                    
                     if playedSongs.count > 5 {
                         try filemanager.removeItem(at: playedSongs.removeFirst())
                     }
@@ -277,8 +287,8 @@ class ViewController: UIViewController {
                         playedSongs.append(fileurl)
                     }
                 }
-                print(fileURLs, playedSongs)
-                print()
+//                print(fileURLs, playedSongs)
+//                print()
             }
         }
         catch {
