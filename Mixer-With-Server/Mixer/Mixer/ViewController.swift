@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     var toRemove = String()
     var playedSongs = [URL]()
     var songIndex = 0
+    var failedDownload: Bool = false
     
     weak var timer: Timer?
     
@@ -249,13 +250,18 @@ class ViewController: UIViewController {
                 "fileName": name.components(separatedBy: ".mp3")[0]
             ]
             
-            Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).responseData { response in
+            Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).downloadProgress { (progress) in
+                self.durationLabel.text = "Percentage Downloaded: \(Int(round(progress.fractionCompleted*100)))"
+                }
+                .responseData { response in
                 switch response.result {
                 case .success:
                     self.playSong(name)
                     break
                 case .failure:
+                    self.audioPlayer.stop()
                     self.songLabel.text = "Failed to download song.\nPlease try again."
+                    self.failedDownload = true
                     break
                 }
             }
@@ -278,6 +284,7 @@ class ViewController: UIViewController {
                     else if fileurl.lastPathComponent == name {
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
+                        self.songLabel.text = name.components(separatedBy: ".mp3")[0]
                     }
                     
                     if playedSongs.count > 5 {
@@ -298,6 +305,10 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
+        if Globals.songs.count != songs.count {
+            songs = Globals.songs.map{ $0 + ".mp3" }
+        }
+        
         if audioPlayer != nil {
             durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
             
@@ -316,13 +327,20 @@ class ViewController: UIViewController {
                 changeSongs()
             }
             
-            if audioPlayer.isPlaying() {
-                if let image = UIImage(named: "pause-button") {
-                    actionImage.image = image
+            if !failedDownload {
+                if audioPlayer.isPlaying() {
+                    if let image = UIImage(named: "pause-button") {
+                        actionImage.image = image
+                    }
+                }
+                else {
+                    if let image = UIImage(named: "play-button") {
+                        actionImage.image = image
+                    }
                 }
             }
             else {
-                if let image = UIImage(named: "play-button") {
+                if let image = UIImage(named: "reset-button") {
                     actionImage.image = image
                 }
             }
@@ -349,7 +367,13 @@ class ViewController: UIViewController {
     
     @objc
     func didSingleTapPauseButton(_ sender: UITapGestureRecognizer) {
-        togglePausePlay()
+        if !failedDownload {
+            togglePausePlay()
+        }
+        else {
+            getSong(songs[songIndex])
+            failedDownload = false
+        }
     }
     
     func togglePausePlay() {

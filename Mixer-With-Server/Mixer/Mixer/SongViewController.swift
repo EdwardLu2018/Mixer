@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Alamofire
 
 class SongViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var swipeUpImage: UIImageView!
+    
+    let refreshControl = UIRefreshControl()
     
     var currTableIndex = Globals.currIndex
     
@@ -30,6 +33,14 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let indexPath = IndexPath(row: currTableIndex, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing Songs...")
+        refreshControl.addTarget(self, action: #selector(refreshSongs), for: .valueChanged)
     }
     
     @objc
@@ -38,6 +49,17 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
             currTableIndex = Globals.currIndex
             let indexPath = IndexPath(row: currTableIndex, section: 0)
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+        }
+    }
+    
+    @objc func refreshSongs(_ sender: Any) {
+        let url = "https://mixerserver.herokuapp.com/dbcontents"
+        Alamofire.request(url, method: .get).responseJSON { response in
+            if let json = response.result.value {
+                Globals.songs = ((json as! NSArray) as! [String]).sorted().map{ $0.components(separatedBy: ".mp3")[0] }
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
     }
     
