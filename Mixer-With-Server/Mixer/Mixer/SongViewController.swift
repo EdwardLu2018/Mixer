@@ -19,14 +19,10 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var currTableIndex = Globals.currIndex
     
-    weak var timer: Timer?
-    
     var songs = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -43,21 +39,14 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshControl.addTarget(self, action: #selector(refreshSongs), for: .valueChanged)
     }
     
-    @objc
-    func timeFired() {
-        if currTableIndex != Globals.currIndex {
-            currTableIndex = Globals.currIndex
-            let indexPath = IndexPath(row: currTableIndex, section: 0)
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
-        }
-    }
-    
     @objc func refreshSongs(_ sender: Any) {
         let url = "https://mixerserver.herokuapp.com/dbcontents"
         Alamofire.request(url, method: .get).responseJSON { response in
             if let json = response.result.value {
                 Globals.songs = ((json as! NSArray) as! [String]).sorted().map{ $0.components(separatedBy: ".mp3")[0] }
                 self.tableView.reloadData()
+                let indexPath = IndexPath(row: self.currTableIndex, section: 0)
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
                 self.refreshControl.endRefreshing()
             }
         }

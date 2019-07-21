@@ -309,7 +309,7 @@ class ViewController: UIViewController {
             songs = Globals.songs.map{ $0 + ".mp3" }
         }
         
-        if audioPlayer != nil {
+        if let audioPlayer = audioPlayer {
             durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
             
             slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
@@ -377,13 +377,12 @@ class ViewController: UIViewController {
     }
     
     func togglePausePlay() {
-        if audioPlayer != nil {
-            if audioPlayer.isPlaying() {
-                audioPlayer.pause()
-            }
-            else {
-                audioPlayer.play()
-            }
+        guard let audioPlayer = audioPlayer else { return }
+        if audioPlayer.isPlaying() {
+            audioPlayer.pause()
+        }
+        else {
+            audioPlayer.play()
         }
     }
     
@@ -403,9 +402,8 @@ class ViewController: UIViewController {
     }
     
     func replayCurrSong() {
-        if audioPlayer != nil {
-            audioPlayer.replay()
-        }
+        guard let audioPlayer = audioPlayer else { return }
+        audioPlayer.replay()
     }
     
     @objc
@@ -433,9 +431,8 @@ class ViewController: UIViewController {
     }
     
     func changeSongs() {
-        if audioPlayer != nil {
-            audioPlayer.stop()
-        }
+        guard let audioPlayer = audioPlayer else { return }
+        audioPlayer.stop()
         getSong(songs[songIndex])
         songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
         Globals.currIndex = songIndex
@@ -445,6 +442,8 @@ class ViewController: UIViewController {
         slider.setValue(0.0, animated: true)
         audioPlayer.resetDefaultNodeSettings()
         resetSliders()
+        let indexPath = IndexPath(row: songIndex, section: 0)
+        songViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
     }
     
     @objc
