@@ -452,6 +452,7 @@ class ViewController: UIViewController {
         switch recognizer.state {
         case .began:
             startTransition(state: nextSongVCState(), duration: 1.0)
+            songViewController.searchBar.endEditing(true)
         case .changed:
             let translation = recognizer.translation(in: self.songViewController.handleArea)
             var fractionComplete = translation.y / songVCHeight
