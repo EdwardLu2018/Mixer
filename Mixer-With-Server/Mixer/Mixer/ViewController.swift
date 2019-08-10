@@ -119,7 +119,6 @@ class ViewController: UIViewController {
         
         Alamofire.request(url, method: .get).responseJSON { response in
             if let json = response.result.value {
-//                print("JSON: \(json)") // serialized json response
                 self.songs = (json as! NSArray) as! [String]
             }
             group.leave()
@@ -277,7 +276,6 @@ class ViewController: UIViewController {
             let fileURLs = try filemanager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
             if !fileURLs.isEmpty {
                 for fileurl in fileURLs {
-//                    print(playedSongs)
                     if fileurl.pathExtension != "mp3" {
                         try filemanager.removeItem(at: fileurl)
                     }
@@ -294,8 +292,6 @@ class ViewController: UIViewController {
                         playedSongs.append(fileurl)
                     }
                 }
-//                print(fileURLs, playedSongs)
-//                print()
             }
         }
         catch {
