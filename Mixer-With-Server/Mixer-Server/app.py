@@ -56,7 +56,7 @@ def index():
         elif password == confirmation:
             for user in Users.query.all():
                 if user.password == password and user.name == name:
-                    flash("Successfully logged in! Welcome, " + user.name, "login")
+                    flash(f"Successfully logged in! Welcome, {user.name}!", "login")
                     login_user(user)
                     return render_template("main.html")
     return render_template("index.html")
@@ -71,13 +71,13 @@ def upload():
                 flash("\"" + file.filename + "\" is not an .mp3 file!", "error")
                 continue
             if FileContents.query.filter_by(name=file.filename).scalar():
-                flash(file.filename + " already exists!", "error")
+                flash(f"{file.filename} already exists!", "error")
                 continue
             newFile = FileContents(name=file.filename.split(), data=file.read())
             threading.Thread(target=save_to_db, args=(newFile,successes,)).start()
             successes.append(file.filename)
     for file in successes:
-        flash("Successfully uploaded " + file, "success")
+        flash(f"Successfully uploaded {file}", "success")
     return render_template("main.html")
 
 def save_to_db(newFile, successes):
@@ -93,7 +93,7 @@ def download():
             flash("Successfully downloaded " + file_data.name, "success")
             return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
         else:
-            flash("\"" + file_name + "\" is not in the database!", "error")
+            flash(f"\"{file_name}\" is not in the database!", "error")
     return render_template("main.html")
 
 @app.route("/download/<song>")
@@ -104,7 +104,7 @@ def download_song(song):
         flash("Successfully downloaded " + file_data.name, "success")
         return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
     else:
-        flash("\"" + song + "\" is not in the database!", "error")
+        flash(f"\"{song}\" is not in the database!", "error")
     return render_template("main.html")
 
 @app.route("/delete", methods=["POST"])
@@ -114,7 +114,7 @@ def delete():
         if filename:
             db.session.query(FileContents).filter(FileContents.name==filename+".mp3").delete()
             db.session.commit()
-            flash("Successfully deleted \"" + filename + ".mp3\" from the database", "success")
+            flash(f"Successfully deleted \"{filename}.mp3\" from the database", "success")
         else:
             flash("Please enter all fields!", "error")
     return render_template("main.html")

@@ -6,7 +6,7 @@
 
 {% block body %}
     {% if current_user.is_authenticated %}
-        <div class="centered-container" align="center">
+        <div class="form-container" align="center">
             <form method="POST" action="/upload" enctype="multipart/form-data">
                 <label for="inputFile">Upload an .mp3 file:</label>
                 <input type="file" name="inputFile" class="inputfile" multiple>

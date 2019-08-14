@@ -11,11 +11,9 @@
         <div id="flashes">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <ul style="list-style: none;">
                         {% for message in messages %}
-                            <li>{{ message }}</li>
+                            <p>{{ message }}</p>
                         {% endfor %}
-                    </ul>
                 {% endif %}
             {% endwith %}
         </div>
