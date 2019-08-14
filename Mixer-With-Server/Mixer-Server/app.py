@@ -66,16 +66,19 @@ def upload():
     if request.method == "POST":
         uploaded_files = request.files.getlist("inputFile")
         successes = []
-        for file in uploaded_files:
-            if file.filename.rsplit(".", 1)[0] == "" or file.filename.rsplit(".", 1)[1].lower() != "mp3":
-                flash("\"" + file.filename + "\" is not an .mp3 file!", "error")
-                continue
-            if FileContents.query.filter_by(name=file.filename).scalar():
-                flash(f"{file.filename} already exists!", "error")
-                continue
-            newFile = FileContents(name=file.filename.split(), data=file.read())
-            threading.Thread(target=save_to_db, args=(newFile,successes,)).start()
-            successes.append(file.filename)
+        if uploaded_files:
+            for file in uploaded_files:
+                if file.filename.rsplit(".", 1)[0] == "" or file.filename.rsplit(".", 1)[1].lower() != "mp3":
+                    flash(f"\"{file.filename}\" is not an .mp3 file!", "error")
+                    continue
+                if FileContents.query.filter_by(name=file.filename).scalar():
+                    flash(f"{file.filename} already exists!", "error")
+                    continue
+                newFile = FileContents(name=file.filename.strip(), data=file.read())
+                threading.Thread(target=save_to_db, args=(newFile,successes,)).start()
+                successes += [file.filename]
+        else:
+            flash("Please enter all fields!", "error")
     for file in successes:
         flash(f"Successfully uploaded {file}", "success")
     return render_template("main.html")
@@ -87,24 +90,28 @@ def save_to_db(newFile, successes):
 @app.route("/download", methods=["POST"])
 def download():
     if request.method == "POST":
-        file_name = request.values.get("fileName")
-        file_data = FileContents.query.filter_by(name=file_name+".mp3").first()
-        if file_data != None:
-            flash("Successfully downloaded " + file_data.name, "success")
-            return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
+        filename = request.values.get("fileName")
+        if filename:
+            filename = filename+".mp3" if not ".mp3" in filename else filename
+            file_data = FileContents.query.filter_by(name=filename).first()
+            if file_data is not None:
+                flash(f"Successfully downloaded {file_data.name}", "success")
+                return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
+            else:
+                flash(f"\"{filename}\" is not in the database!", "error")
         else:
-            flash(f"\"{file_name}\" is not in the database!", "error")
+            flash("Please enter all fields!", "error")
     return render_template("main.html")
 
 @app.route("/download/<song>")
 def download_song(song):
-    file_name = song + ".mp3"
-    file_data = FileContents.query.filter_by(name=file_name).first()
-    if file_data != None:
-        flash("Successfully downloaded " + file_data.name, "success")
+    filename = song+".mp3" if not ".mp3" in song else song
+    file_data = FileContents.query.filter_by(name=filename).first()
+    if file_data is not None:
+        flash(f"Successfully downloaded {file_data.name}", "success")
         return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
     else:
-        flash(f"\"{song}\" is not in the database!", "error")
+        flash(f"\"{filename}\" is not in the database!", "error")
     return render_template("main.html")
 
 @app.route("/delete", methods=["POST"])
@@ -112,18 +119,20 @@ def delete():
     if request.method == "POST":
         filename = request.values.get("fileName")
         if filename:
-            db.session.query(FileContents).filter(FileContents.name==filename+".mp3").delete()
-            db.session.commit()
-            flash(f"Successfully deleted \"{filename}.mp3\" from the database", "success")
+            filename = filename+".mp3" if not ".mp3" in filename else filename
+            if filename in list(map(lambda x : x[0], db.session.query(FileContents.name).all())):
+                db.session.query(FileContents).filter(FileContents.name==filename).delete()
+                db.session.commit()
+                flash(f"Successfully deleted \"{filename}\" from the database", "success")
+            else:
+                flash(f"\"{filename}\" is not in the database!", "error")
         else:
             flash("Please enter all fields!", "error")
     return render_template("main.html")
 
 @app.route("/dbcontents")
 def contents():
-    data = []
-    for filename in db.session.query(FileContents.name).all():
-        data.append(filename)
+    data = list(map(lambda x : x[0], db.session.query(FileContents.name).all()))
     return jsonify(data)
 
 if __name__ == "__main__":
