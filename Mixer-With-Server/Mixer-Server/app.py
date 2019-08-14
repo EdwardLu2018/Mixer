@@ -73,7 +73,7 @@ def upload():
             if FileContents.query.filter_by(name=file.filename).scalar():
                 flash(file.filename + " already exists!", "error")
                 continue
-            newFile = FileContents(name=file.filename, data=file.read())
+            newFile = FileContents(name=file.filename.split(), data=file.read())
             threading.Thread(target=save_to_db, args=(newFile,successes,)).start()
             successes += [file.filename]
     for file in successes:
