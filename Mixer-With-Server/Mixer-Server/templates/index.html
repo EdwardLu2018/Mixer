@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <div class="centered-container" align="center">
+        <h2>Please Login:</h2>
+        <form method="POST" action="/" enctype="multipart/form-data">
+            <label for="name">Name:</label><br>
+            <input type="text" name="name"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password"><br>
+            <label for="name">Confirm Password:</label><br>
+            <input type="password" name="confirmation"><br>
+            <button type="submit" class="btn">Submit</button><br><br>
+        </form>
+    </div>
+{% endblock %}
