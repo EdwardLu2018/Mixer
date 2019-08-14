@@ -75,7 +75,7 @@ def upload():
                 continue
             newFile = FileContents(name=file.filename.split(), data=file.read())
             threading.Thread(target=save_to_db, args=(newFile,successes,)).start()
-            successes += [file.filename]
+            successes.append(file.filename)
     for file in successes:
         flash("Successfully uploaded " + file, "success")
     return render_template("main.html")
@@ -123,7 +123,7 @@ def delete():
 def contents():
     data = []
     for filename in db.session.query(FileContents.name).all():
-        data += filename
+        data.append(filename)
     return jsonify(data)
 
 if __name__ == "__main__":
