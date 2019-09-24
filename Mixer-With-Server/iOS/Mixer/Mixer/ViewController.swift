@@ -71,6 +71,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         UIApplication.shared.beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
         
