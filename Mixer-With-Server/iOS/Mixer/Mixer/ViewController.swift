@@ -228,9 +228,11 @@ class ViewController: UIViewController {
             self.addChild(songViewController)
             self.view.addSubview(songViewController.view)
             
-            songViewController.view.frame = CGRect(x: 0.0, y: self.view.frame.height - songVCHandleArea, width: self.view.bounds.width, height: songVCHeight)
+            let offset: CGFloat = 10
+            songViewController.view.frame = CGRect(x: offset/2, y: self.view.frame.height - songVCHandleArea, width: self.view.bounds.width - offset, height: songVCHeight)
             
             songViewController.view.clipsToBounds = true
+            songViewController.view.layer.cornerRadius = 10
             
             panGestureRecognizer = UIPanGestureRecognizer()
             panGestureRecognizer.addTarget(self, action: #selector(handleDataPan))
@@ -536,9 +538,9 @@ class ViewController: UIViewController {
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
-                    self.songViewController.view.layer.cornerRadius = 12
+                    self.songViewController.view.layer.cornerRadius = 15
                 case .collapsed:
-                    self.songViewController.view.layer.cornerRadius = 5
+                    self.songViewController.view.layer.cornerRadius = 10
                 }
             }
             cornerRadiusAnimator.startAnimation()

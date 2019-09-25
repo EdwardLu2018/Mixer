@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-9N-895" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="60.5" y="316.5" width="254" height="31"/>
+                                <rect key="frame" x="60.5" y="333.5" width="254" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="7ig-Ug-sbq"/>
                                 </constraints>
@@ -34,10 +33,10 @@
                                 </connections>
                             </slider>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause-button" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-sx-q09">
-                                <rect key="frame" x="179.5" y="250.5" width="16" height="16"/>
+                                <rect key="frame" x="162.5" y="233.5" width="50" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srg-ca-iFR">
-                                <rect key="frame" x="0.0" y="125.5" width="375" height="75"/>
+                                <rect key="frame" x="0.0" y="108.5" width="375" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="XTS-Tw-FkD"/>
                                 </constraints>
@@ -46,13 +45,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-qI-hPs">
-                                <rect key="frame" x="0.0" y="351.5" width="375" height="21"/>
+                                <rect key="frame" x="0.0" y="368.5" width="375" height="21"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWr-Gz-FBG">
-                                <rect key="frame" x="322.5" y="350" width="30" height="30"/>
+                                <rect key="frame" x="322.5" y="333" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="4ao-TV-0JY"/>
                                     <constraint firstAttribute="height" constant="30" id="7ix-MR-dnP"/>
@@ -63,7 +62,7 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.25" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="Cvj-14-ncZ" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="73" y="382.5" width="229" height="31"/>
+                                <rect key="frame" x="73" y="399.5" width="229" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="xK9-zI-a6e"/>
                                 </constraints>
@@ -79,7 +78,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="tUi-p1-u3Q" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="73" y="452.5" width="229" height="31"/>
+                                <rect key="frame" x="73" y="469.5" width="229" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="B5n-h8-HaS"/>
                                 </constraints>
@@ -95,7 +94,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="8pz-iW-FLk" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="73" y="487.5" width="229" height="31"/>
+                                <rect key="frame" x="73" y="504.5" width="229" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="gx1-At-BWf"/>
                                 </constraints>
@@ -111,7 +110,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="od8-vs-aoC" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="73" y="522.5" width="229" height="31"/>
+                                <rect key="frame" x="73" y="539.5" width="229" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="vW9-ZZ-yLw"/>
                                 </constraints>
@@ -127,14 +126,14 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvI-sn-6FV">
-                                <rect key="frame" x="179.5" y="557.5" width="16" height="22"/>
+                                <rect key="frame" x="175.5" y="574.5" width="24" height="24"/>
                                 <state key="normal" image="reset-button"/>
                                 <connections>
                                     <action selector="didPressResetButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cao-lB-dPj"/>
                                 </connections>
                             </button>
                             <slider opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-2400" maxValue="2400" translatesAutoresizingMaskIntoConstraints="NO" id="PAt-Ro-spA" customClass="CustomSlider" customModule="Mixer" customModuleProvider="target">
-                                <rect key="frame" x="73" y="417.5" width="229" height="31"/>
+                                <rect key="frame" x="73" y="434.5" width="229" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="0fR-LA-U5L"/>
                                 </constraints>
@@ -210,16 +209,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slide-up" translatesAutoresizingMaskIntoConstraints="NO" id="z0I-sl-TaN">
-                                        <rect key="frame" x="170" y="8" width="35" height="34"/>
+                                        <rect key="frame" x="170" y="7.5" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="4bi-7Q-2oD"/>
+                                            <constraint firstAttribute="height" constant="35" id="oEv-yB-1cX"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="z0I-sl-TaN" secondAttribute="trailing" constant="170" id="G4b-b6-4S6"/>
+                                    <constraint firstItem="z0I-sl-TaN" firstAttribute="centerY" secondItem="d63-mw-Bdv" secondAttribute="centerY" id="0Zp-w7-iaP"/>
                                     <constraint firstAttribute="height" constant="50" id="HB8-qm-eym"/>
-                                    <constraint firstItem="z0I-sl-TaN" firstAttribute="leading" secondItem="d63-mw-Bdv" secondAttribute="leading" constant="170" id="HTN-UQ-4nw"/>
-                                    <constraint firstAttribute="bottom" secondItem="z0I-sl-TaN" secondAttribute="bottom" constant="8" id="IKO-Dd-vLk"/>
-                                    <constraint firstItem="z0I-sl-TaN" firstAttribute="top" secondItem="d63-mw-Bdv" secondAttribute="top" constant="8" id="nAN-Pn-gqu"/>
+                                    <constraint firstItem="z0I-sl-TaN" firstAttribute="centerX" secondItem="d63-mw-Bdv" secondAttribute="centerX" id="gcG-nY-5wp"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fya-eW-5Ae">
