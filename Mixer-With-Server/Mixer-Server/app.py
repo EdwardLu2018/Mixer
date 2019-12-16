@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, request, send_file, redirect, jsonify, url_for
+from flask import Flask, render_template, flash, request, send_file, redirect, jsonify, url_for, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user
 from io import BytesIO
@@ -96,7 +96,7 @@ def download():
             file_data = FileContents.query.filter_by(name=filename).first()
             if file_data is not None:
                 flash(f"Successfully downloaded {file_data.name}", "success")
-                return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
+                return send_file(BytesIO(file_data.data), mimetype="audio/mpeg", attachment_filename=file_data.name, as_attachment=True)
             else:
                 flash(f"\"{filename}\" is not in the database!", "error")
         else:
@@ -109,7 +109,7 @@ def download_song(song):
     file_data = FileContents.query.filter_by(name=filename).first()
     if file_data is not None:
         flash(f"Successfully downloaded {file_data.name}", "success")
-        return send_file(BytesIO(file_data.data), attachment_filename=file_data.name, as_attachment=True)
+        return send_file(BytesIO(file_data.data), mimetype="audio/mpeg", attachment_filename=file_data.name, as_attachment=True)
     else:
         flash(f"\"{filename}\" is not in the database!", "error")
     return render_template("main.html")

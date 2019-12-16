@@ -19,7 +19,6 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var currTableIndex = Globals.currIndex
     
-    var songs = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

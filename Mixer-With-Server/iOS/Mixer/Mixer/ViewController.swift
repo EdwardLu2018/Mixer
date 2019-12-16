@@ -13,6 +13,7 @@ import Alamofire
 
 struct Globals {
     static var songs = [String]()
+    static var songsExtension = [String]()
     static var currSong = String()
     static var currIndex = Int()
 }
@@ -41,18 +42,12 @@ class ViewController: UIViewController {
     var panGestureRecognizer = UIPanGestureRecognizer()
     
     var filemanager = FileManager.default
-    var songs = [String]()
     var toRemove = String()
     var playedSongs = [URL]()
-    var songIndex = 0
     var failedDownload: Bool = false
+    var isDownloading: Bool = false
     
     weak var timer: Timer?
-    
-    enum SongVCState {
-        case expanded
-        case collapsed
-    }
     
     var songViewController: SongViewController!
     var visualEffectView: UIVisualEffectView!
@@ -65,7 +60,7 @@ class ViewController: UIViewController {
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted: CGFloat = 0
     
-    let customGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
+    let darkGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
     let lightGreen = UIColor.init(red: 125.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1)
     
     override func viewDidLoad() {
@@ -94,9 +89,6 @@ class ViewController: UIViewController {
         echoSlider.center.x += (view.bounds.width + echoSlider.bounds.width/2)
         distortionSlider.center.x -= (view.bounds.width + distortionSlider.bounds.width/2)
         
-        let group = DispatchGroup()
-        group.enter()
-        
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
                        animations: {
             self.songLabel.center.y += self.view.bounds.height
@@ -123,19 +115,15 @@ class ViewController: UIViewController {
         
         Alamofire.request(url, method: .get).responseJSON { response in
             if let json = response.result.value {
-                self.songs = (json as! NSArray) as! [String]
+                Globals.songsExtension = (json as! NSArray) as! [String]
+                Globals.songsExtension = Globals.songsExtension.sorted()
+                Globals.songs = Globals.songsExtension.map{ $0.components(separatedBy: ".mp3")[0] }
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
+                self.replayToggleButton.isSelected = true
+                self.setupAudio()
+                self.setUpSongViewController()
             }
-            group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
-            
-            self.replayToggleButton.isSelected = false
-            self.replayToggleButton.alpha = 0.25
-            
-            self.setupAudio()
-            self.setUpSongViewController()
         }
     }
     
@@ -147,18 +135,17 @@ class ViewController: UIViewController {
                 togglePausePlay()
                 break
             case UIEvent.EventSubtype.remoteControlNextTrack:
-                songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+                Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
                 changeSongs()
                 break
             case UIEvent.EventSubtype.remoteControlPreviousTrack:
-                songIndex = (songIndex - 1) > 0 ? (songIndex - 1) : (songs.count - 1)
+                Globals.currIndex = (Globals.currIndex - 1) > 0 ? (Globals.currIndex - 1) : (Globals.songs.count - 1)
                 changeSongs()
                 break
             default:
                 break
             }
         }
-
     }
     
     func setupSliderThumbs() {
@@ -177,11 +164,8 @@ class ViewController: UIViewController {
     }
     
     func setupAudio() {
-        songs = songs.sorted()
-        Globals.songs = songs.map{ $0.components(separatedBy: ".mp3")[0] }
-        songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
-        Globals.currIndex = songIndex
-        getSong(songs.first!)
+        songLabel.text = Globals.songs[Globals.currIndex]
+        getSong(Globals.songsExtension.first!)
     }
     
     func setUpGradient() {
@@ -189,7 +173,7 @@ class ViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
 //        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 //        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [lightGreen.cgColor, customGreen.cgColor]
+        gradientLayer.colors = [lightGreen.cgColor, darkGreen.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -215,65 +199,6 @@ class ViewController: UIViewController {
         swipeRightGesture.addTarget(self, action: #selector(didSwipeRight))
         swipeRightGesture.direction = .right
         self.view.addGestureRecognizer(swipeRightGesture)
-    }
-    
-    func setUpSongViewController() {
-        visualEffectView = UIVisualEffectView()
-        visualEffectView.frame = self.view.frame
-        self.view.addSubview(visualEffectView)
-        self.view.sendSubviewToBack(visualEffectView)
-        
-        if let songViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SongView") as? SongViewController {
-            self.songViewController = songViewController
-            self.addChild(songViewController)
-            self.view.addSubview(songViewController.view)
-            
-            let offset: CGFloat = 10
-            songViewController.view.frame = CGRect(x: offset/2, y: self.view.frame.height - songVCHandleArea, width: self.view.bounds.width - offset, height: songVCHeight)
-            
-            songViewController.view.clipsToBounds = true
-            songViewController.view.layer.cornerRadius = 10
-            
-            panGestureRecognizer = UIPanGestureRecognizer()
-            panGestureRecognizer.addTarget(self, action: #selector(handleDataPan))
-            songViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
-        }
-    }
-    
-    func getSong(_ name: String) {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let url = URL(fileURLWithPath: path)
-        let filePath = url.appendingPathComponent(name).path
-        
-        if !filemanager.fileExists(atPath: filePath) {
-            self.songLabel.text = "Loading..."
-            let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-            
-            let url = "https://mixerserver.herokuapp.com/download"
-            
-            let parameters = [
-                "fileName": name.components(separatedBy: ".mp3")[0]
-            ]
-            
-            Alamofire.download(url, method: .post, parameters: parameters, to: destination).validate(contentType: ["audio/mpeg"]).downloadProgress { (progress) in
-                self.durationLabel.text = "Percentage Downloaded: \(Int(round(progress.fractionCompleted*100)))"
-                }
-                .responseData { response in
-                switch response.result {
-                case .success:
-                    self.playSong(name)
-                    break
-                case .failure:
-                    self.audioPlayer.stop()
-                    self.songLabel.text = "Failed to download song.\nPlease try again."
-                    self.failedDownload = true
-                    break
-                }
-            }
-        }
-        else {
-            self.playSong(name)
-        }
     }
     
     func playSong(_ name: String) {
@@ -307,30 +232,28 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-        if Globals.songs.count != songs.count {
-            songs = Globals.songs.map{ $0 + ".mp3" }
+        if Globals.songs.count != Globals.songs.count {
+            Globals.songs = Globals.songs.map{ $0 + ".mp3" }
         }
         
-        if let audioPlayer = audioPlayer {
-            durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
+        if let audioPlayer = self.audioPlayer {
+            if !self.isDownloading {
+                durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
+            }
             
             slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
 
             if replayToggleButton.isSelected && audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
                 replayCurrSong()
             }
-            else if songIndex != Globals.currIndex {
-                songIndex = Globals.currIndex
-                changeSongs()
-            }
             else if audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
-                songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+                Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
                 audioPlayer.currentPosition = 0
                 changeSongs()
             }
             
-            if !failedDownload {
-                if audioPlayer.isPlaying() {
+            if !self.failedDownload {
+                if self.audioPlayer.isPlaying() {
                     if let image = UIImage(named: "pause-button") {
                         actionImage.image = image
                     }
@@ -373,7 +296,7 @@ class ViewController: UIViewController {
             togglePausePlay()
         }
         else {
-            getSong(songs[songIndex])
+            getSong(Globals.songsExtension[Globals.currIndex])
             failedDownload = false
         }
     }
@@ -393,16 +316,6 @@ class ViewController: UIViewController {
         replayCurrSong()
     }
     
-    @objc
-    func didSingleTapTableView(_ sender: UITapGestureRecognizer) {
-        switch sender.state {
-        case .ended:
-            animateTransitionIfNeeded(state: nextSongVCState(), duration: 1)
-        default:
-            break
-        }
-    }
-    
     func replayCurrSong() {
         guard let audioPlayer = audioPlayer else { return }
         audioPlayer.replay()
@@ -410,7 +323,7 @@ class ViewController: UIViewController {
     
     @objc
     func didSwipeLeft() {
-        songIndex = (songIndex + 1) < songs.count ? (songIndex + 1) : 0
+        Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
         songLabel.center.x += view.frame.width
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
             animations: {
@@ -422,7 +335,7 @@ class ViewController: UIViewController {
     
     @objc
     func didSwipeRight() {
-        songIndex = (songIndex - 1) >= 0 ? (songIndex - 1) : (songs.count - 1)
+        Globals.currIndex = (Globals.currIndex - 1) >= 0 ? (Globals.currIndex - 1) : (Globals.songs.count - 1)
         songLabel.center.x -= view.frame.width
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
                        animations: {
@@ -435,58 +348,46 @@ class ViewController: UIViewController {
     func changeSongs() {
         guard let audioPlayer = audioPlayer else { return }
         audioPlayer.stop()
-        getSong(songs[songIndex])
-        songLabel.text = songs[songIndex].components(separatedBy: ".mp3")[0]
-        Globals.currIndex = songIndex
+        getSong(Globals.songsExtension[Globals.currIndex])
+        songLabel.text = Globals.songs[Globals.currIndex].components(separatedBy: ".mp3")[0]
         if let image = UIImage(named: "pause-button") {
             actionImage.image = image
         }
         slider.setValue(0.0, animated: true)
         audioPlayer.resetDefaultNodeSettings()
         resetSliders()
-        let indexPath = IndexPath(row: songIndex, section: 0)
+        let indexPath = IndexPath(row: Globals.currIndex, section: 0)
         songViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
     }
     
-    @objc
-    func handleDataPan(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            startTransition(state: nextSongVCState(), duration: 1.0)
-        case .changed:
-            let translation = recognizer.translation(in: self.songViewController.handleArea)
-            var fractionComplete = translation.y / songVCHeight
-            fractionComplete = songVCVisible ? fractionComplete : -fractionComplete
-            updateTransition(fractionCompleted: fractionComplete)
-        case .ended:
-            continueTransition()
-        default:
-            break
-        }
-    }
-    
     @IBAction func sliderDidSlide(_ sender: UISlider) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.goTo(time: slider.value * audioPlayer.lengthSongSeconds)
     }
     
     @IBAction func speedSliderDidSlide(_ sender: Any) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.speedControl.rate = speedSlider.value
     }
     
     @IBAction func pitchSliderDidSlide(_ sender: Any) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.pitchControl.pitch = pitchSlider.value
     }
     
     @IBAction func reverbSliderDidSlide(_ sender: Any) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.reverbControl.wetDryMix = reverbSlider.value
     }
     
     @IBAction func echoSliderDidSlide(_ sender: Any) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.echoControl.delayTime = TimeInterval(echoSlider.value) * (2.0 / 100)
         audioPlayer.echoControl.wetDryMix = echoSlider.value
     }
     
     @IBAction func distortionSliderDidSlide(_ sender: Any) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.distortionControl.wetDryMix = distortionSlider.value
     }
     
@@ -502,95 +403,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didPressResetButton(_ sender: UIButton) {
+        guard let audioPlayer = audioPlayer else { return }
         audioPlayer.resetDefaultNodeSettings()
         resetSliders()
     }
     
     func resetSliders() {
+        guard let audioPlayer = audioPlayer else { return }
         pitchSlider.value = audioPlayer.pitchControl.pitch
         speedSlider.value = audioPlayer.speedControl.rate
         reverbSlider.value = audioPlayer.reverbControl.wetDryMix
         echoSlider.value = Float(audioPlayer.echoControl.delayTime)
         distortionSlider.value = audioPlayer.distortionControl.wetDryMix
-    }
-    
-    func nextSongVCState() -> SongVCState {
-        return songVCVisible ? .collapsed : .expanded
-    }
-    
-    func animateTransitionIfNeeded(state: SongVCState, duration: TimeInterval) {
-        if runningAnimations.isEmpty {
-            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 0.85) {
-                switch state {
-                case .expanded:
-                    self.songViewController.view.frame.origin.y = self.view.frame.height - self.songVCHeight
-                case .collapsed:
-                    self.songViewController.view.frame.origin.y = self.view.frame.height - self.songVCHandleArea
-                }
-            }
-            frameAnimator.addCompletion { _ in
-                self.songVCVisible = !self.songVCVisible
-                self.runningAnimations.removeAll()
-            }
-            frameAnimator.startAnimation()
-            runningAnimations.append(frameAnimator)
-            
-            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
-                switch state {
-                case .expanded:
-                    self.songViewController.view.layer.cornerRadius = 15
-                case .collapsed:
-                    self.songViewController.view.layer.cornerRadius = 10
-                }
-            }
-            cornerRadiusAnimator.startAnimation()
-            runningAnimations.append(cornerRadiusAnimator)
-            
-            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
-                    
-                case .collapsed:
-                    self.visualEffectView.effect = nil
-                }
-            }
-            blurAnimator.startAnimation()
-            runningAnimations.append(blurAnimator)
-            
-            let rotateAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                switch state {
-                case .expanded:
-                    self.songViewController.swipeUpImage.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-                case .collapsed:
-                    self.songViewController.swipeUpImage.transform = CGAffineTransform(rotationAngle: 0)
-                }
-            }
-            rotateAnimator.startAnimation()
-            runningAnimations.append(rotateAnimator)
-        }
-    }
-    
-    func startTransition(state: SongVCState, duration: TimeInterval) {
-        if runningAnimations.isEmpty {
-            animateTransitionIfNeeded(state: state, duration: duration)
-        }
-        for animator in runningAnimations {
-            animator.pauseAnimation()
-            animationProgressWhenInterrupted = animator.fractionComplete
-        }
-    }
-    
-    func updateTransition(fractionCompleted: CGFloat) {
-        for animator in runningAnimations {
-            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
-        }
-    }
-    
-    func continueTransition() {
-        for animator in runningAnimations {
-            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-        }
     }
     
 }
