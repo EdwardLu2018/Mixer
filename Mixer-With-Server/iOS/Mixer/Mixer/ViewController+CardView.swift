@@ -52,6 +52,8 @@ extension ViewController {
             panGestureRecognizer = UIPanGestureRecognizer()
             panGestureRecognizer.addTarget(self, action: #selector(handleDataPan))
             songViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
+            
+            songViewController.delegate = self
         }
     }
     

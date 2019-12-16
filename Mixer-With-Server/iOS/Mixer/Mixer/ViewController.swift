@@ -11,14 +11,11 @@ import AVFoundation
 import MediaPlayer
 import Alamofire
 
-struct Globals {
-    static var songs = [String]()
-    static var songsExtension = [String]()
-    static var currSong = String()
-    static var currIndex = Int()
+protocol MusicController {
+    func getSong(_ name: String)
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MusicController {
 
     @IBOutlet weak var actionImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
@@ -42,8 +39,8 @@ class ViewController: UIViewController {
     var panGestureRecognizer = UIPanGestureRecognizer()
     
     var filemanager = FileManager.default
-    var toRemove = String()
-    var playedSongs = [URL]()
+    var toRemove: String = ""
+    var playedSongs: [URL] = []
     var failedDownload: Bool = false
     var isDownloading: Bool = false
     
@@ -109,15 +106,15 @@ class ViewController: UIViewController {
         self.setUpGradient()
         self.setupGuestures()
         self.songLabel.text = "Loading..."
-        self.durationLabel.text = ""
+        self.durationLabel.text = "- - - - -"
         
-        let url = "https://mixerserver.herokuapp.com/dbcontents"
+        let dbURL = "https://mixerserver.herokuapp.com/dbcontents"
         
-        Alamofire.request(url, method: .get).responseJSON { response in
+        Alamofire.request(dbURL, method: .get).responseJSON { response in
             if let json = response.result.value {
-                Globals.songsExtension = (json as! NSArray) as! [String]
-                Globals.songsExtension = Globals.songsExtension.sorted()
-                Globals.songs = Globals.songsExtension.map{ $0.components(separatedBy: ".mp3")[0] }
+                SongsHandler.songsExtension = (json as! NSArray) as! [String]
+                SongsHandler.songsExtension = SongsHandler.songsExtension.sorted()
+                SongsHandler.songs = SongsHandler.songsExtension.map{ $0.components(separatedBy: ".mp3")[0] }
                 
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
                 self.replayToggleButton.isSelected = true
@@ -135,12 +132,10 @@ class ViewController: UIViewController {
                 togglePausePlay()
                 break
             case UIEvent.EventSubtype.remoteControlNextTrack:
-                Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
-                changeSongs()
+                changeSong(SongsHandler.nextSong())
                 break
             case UIEvent.EventSubtype.remoteControlPreviousTrack:
-                Globals.currIndex = (Globals.currIndex - 1) > 0 ? (Globals.currIndex - 1) : (Globals.songs.count - 1)
-                changeSongs()
+                changeSong(SongsHandler.prevSong())
                 break
             default:
                 break
@@ -164,8 +159,8 @@ class ViewController: UIViewController {
     }
     
     func setupAudio() {
-        songLabel.text = Globals.songs[Globals.currIndex]
-        getSong(Globals.songsExtension.first!)
+        songLabel.text = SongsHandler.songs[SongsHandler.currIndex]
+        getSong(SongsHandler.songsExtension.first!)
     }
     
     func setUpGradient() {
@@ -232,8 +227,8 @@ class ViewController: UIViewController {
     
     @objc
     func timerFired() {
-        if Globals.songs.count != Globals.songs.count {
-            Globals.songs = Globals.songs.map{ $0 + ".mp3" }
+        if SongsHandler.songs.count != SongsHandler.songs.count {
+            SongsHandler.songs = SongsHandler.songs.map{ $0 + ".mp3" }
         }
         
         if let audioPlayer = self.audioPlayer {
@@ -247,9 +242,8 @@ class ViewController: UIViewController {
                 replayCurrSong()
             }
             else if audioPlayer.getCurrentPosition() > audioPlayer.lengthSongSeconds {
-                Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
                 audioPlayer.currentPosition = 0
-                changeSongs()
+                changeSong(SongsHandler.nextSong())
             }
             
             if !self.failedDownload {
@@ -296,7 +290,7 @@ class ViewController: UIViewController {
             togglePausePlay()
         }
         else {
-            getSong(Globals.songsExtension[Globals.currIndex])
+            getSong(SongsHandler.songsExtension[SongsHandler.currIndex])
             failedDownload = false
         }
     }
@@ -323,40 +317,38 @@ class ViewController: UIViewController {
     
     @objc
     func didSwipeLeft() {
-        Globals.currIndex = (Globals.currIndex + 1) < Globals.songs.count ? (Globals.currIndex + 1) : 0
         songLabel.center.x += view.frame.width
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
             animations: {
                 self.songLabel.center.x -= self.view.frame.width
         },
         completion: nil)
-        changeSongs()
+        changeSong(SongsHandler.nextSong())
     }
     
     @objc
     func didSwipeRight() {
-        Globals.currIndex = (Globals.currIndex - 1) >= 0 ? (Globals.currIndex - 1) : (Globals.songs.count - 1)
         songLabel.center.x -= view.frame.width
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut],
                        animations: {
             self.songLabel.center.x += self.view.frame.width
         },
         completion: nil)
-        changeSongs()
+        changeSong(SongsHandler.prevSong())
     }
     
-    func changeSongs() {
+    func changeSong(_ name: String) {
         guard let audioPlayer = audioPlayer else { return }
         audioPlayer.stop()
-        getSong(Globals.songsExtension[Globals.currIndex])
-        songLabel.text = Globals.songs[Globals.currIndex].components(separatedBy: ".mp3")[0]
+        getSong(name)
+        songLabel.text = name.components(separatedBy: ".mp3")[0]
         if let image = UIImage(named: "pause-button") {
             actionImage.image = image
         }
         slider.setValue(0.0, animated: true)
         audioPlayer.resetDefaultNodeSettings()
         resetSliders()
-        let indexPath = IndexPath(row: Globals.currIndex, section: 0)
+        let indexPath = IndexPath(row: SongsHandler.currIndex, section: 0)
         songViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
     }
     

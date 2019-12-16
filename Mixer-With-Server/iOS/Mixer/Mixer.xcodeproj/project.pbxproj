@@ -17,6 +17,7 @@
 		2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9B911922AF41BB0027874A /* SongTableViewCell.swift */; };
 		2BAC33D323A83D6C00FA7CBA /* ViewController+APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC33D223A83D6C00FA7CBA /* ViewController+APIManager.swift */; };
 		2BAC33D523A83DC900FA7CBA /* ViewController+CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC33D423A83DC900FA7CBA /* ViewController+CardView.swift */; };
+		2BAC33D723A848E100FA7CBA /* SongsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC33D623A848E100FA7CBA /* SongsHandler.swift */; };
 		2BE7A8AD22C847640032F1C0 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */; };
 		50F2680C5CEB8408A7D4F836 /* Pods_Mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F94971A016DCC399A4F6F5 /* Pods_Mixer.framework */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		2B9B911922AF41BB0027874A /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		2BAC33D223A83D6C00FA7CBA /* ViewController+APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+APIManager.swift"; sourceTree = "<group>"; };
 		2BAC33D423A83DC900FA7CBA /* ViewController+CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CardView.swift"; sourceTree = "<group>"; };
+		2BAC33D623A848E100FA7CBA /* SongsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsHandler.swift; sourceTree = "<group>"; };
 		2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		5BE5438C7240EA04DFD96A21 /* Pods-Mixer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mixer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mixer/Pods-Mixer.debug.xcconfig"; sourceTree = "<group>"; };
 		F7F94971A016DCC399A4F6F5 /* Pods_Mixer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mixer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 				2B9B905A22AD6D270027874A /* AppDelegate.swift */,
 				2B9B907322ADBF8F0027874A /* CustomSlider.swift */,
 				2BE7A8AC22C847640032F1C0 /* AudioPlayer.swift */,
+				2BAC33D623A848E100FA7CBA /* SongsHandler.swift */,
 				2B9B905C22AD6D270027874A /* ViewController.swift */,
 				2BAC33D423A83DC900FA7CBA /* ViewController+CardView.swift */,
 				2BAC33D223A83D6C00FA7CBA /* ViewController+APIManager.swift */,
@@ -236,6 +239,7 @@
 				2B9B911A22AF41BB0027874A /* SongTableViewCell.swift in Sources */,
 				2B9B907422ADBF8F0027874A /* CustomSlider.swift in Sources */,
 				2B9B905B22AD6D270027874A /* AppDelegate.swift in Sources */,
+				2BAC33D723A848E100FA7CBA /* SongsHandler.swift in Sources */,
 				2BAC33D323A83D6C00FA7CBA /* ViewController+APIManager.swift in Sources */,
 				2BE7A8AD22C847640032F1C0 /* AudioPlayer.swift in Sources */,
 				2BAC33D523A83DC900FA7CBA /* ViewController+CardView.swift in Sources */,

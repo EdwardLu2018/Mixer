@@ -15,10 +15,11 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var swipeUpImage: UIImageView!
     
+    var delegate: MusicController?
+    
     let refreshControl = UIRefreshControl()
     
-    var currTableIndex = Globals.currIndex
-    
+    var currTableIndex = SongsHandler.currIndex
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let url = "https://mixerserver.herokuapp.com/dbcontents"
         Alamofire.request(url, method: .get).responseJSON { response in
             if let json = response.result.value {
-                Globals.songs = ((json as! NSArray) as! [String]).sorted().map{ $0.components(separatedBy: ".mp3")[0] }
+                SongsHandler.songs = ((json as! NSArray) as! [String]).sorted().map{ $0.components(separatedBy: ".mp3")[0] }
                 self.tableView.reloadData()
                 let indexPath = IndexPath(row: self.currTableIndex, section: 0)
                 self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
@@ -56,19 +57,20 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Globals.songs.count
+        return SongsHandler.songs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "songInfo", for: indexPath) as? SongTableViewCell else {
             fatalError("The dequeued cell is not an instance of SongTableViewCell.")
         }
-        cell.songTitle.text = Globals.songs[indexPath.row]
+        cell.songTitle.text = SongsHandler.songs[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Globals.currIndex = indexPath.row
+        SongsHandler.currIndex = indexPath.row
+        delegate?.getSong(SongsHandler.songsExtension[SongsHandler.currIndex])
     }
 }
