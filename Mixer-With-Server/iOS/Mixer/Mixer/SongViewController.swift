@@ -18,16 +18,14 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var delegate: MusicController?
     
     let refreshControl = UIRefreshControl()
-    
-    var currTableIndex = SongsHandler.currIndex
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
         
-        let indexPath = IndexPath(row: currTableIndex, section: 0)
+        let indexPath = IndexPath(row: SongsHandler.currIndex, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
         
         if #available(iOS 10.0, *) {
@@ -45,8 +43,8 @@ class SongViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let json = response.result.value {
                 SongsHandler.songs = ((json as! NSArray) as! [String]).sorted().map{ $0.components(separatedBy: ".mp3")[0] }
                 self.tableView.reloadData()
-                let indexPath = IndexPath(row: self.currTableIndex, section: 0)
-                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
+                let indexPath = IndexPath(row: SongsHandler.currIndex, section: 0)
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
                 self.refreshControl.endRefreshing()
             }
         }

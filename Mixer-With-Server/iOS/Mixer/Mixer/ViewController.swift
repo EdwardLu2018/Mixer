@@ -31,6 +31,8 @@ class ViewController: UIViewController, MusicController {
     
     var audioPlayer: AudioPlayer!
     
+    var ai = UIActivityIndicatorView()
+    
     var gradientLayer: CAGradientLayer!
     var singleTapGesture = UITapGestureRecognizer()
     var doubleTapGesture = UITapGestureRecognizer()
@@ -49,14 +51,14 @@ class ViewController: UIViewController, MusicController {
     var songViewController: SongViewController!
     var visualEffectView: UIVisualEffectView!
     
-    let songVCHeight: CGFloat = 600
+    let songVCHeight: CGFloat = 610
     let songVCHandleArea: CGFloat = 50
     
     var songVCVisible = false
     
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted: CGFloat = 0
-    
+        
     let darkGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
     let lightGreen = UIColor.init(red: 125.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1)
     
@@ -120,6 +122,11 @@ class ViewController: UIViewController, MusicController {
                 self.replayToggleButton.isSelected = true
                 self.setupAudio()
                 self.setUpSongViewController()
+                
+                self.ai = UIActivityIndicatorView(style: .gray)
+                self.ai.hidesWhenStopped = true
+                self.ai.center = CGPoint(x: self.view.bounds.width/2, y: self.songLabel.center.y/2)
+                self.view.insertSubview(self.ai, at: 2)
             }
         }
     }
@@ -233,7 +240,11 @@ class ViewController: UIViewController, MusicController {
         
         if let audioPlayer = self.audioPlayer {
             if !self.isDownloading {
+                ai.stopAnimating()
                 durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
+            }
+            else {
+                ai.startAnimating()
             }
             
             slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
@@ -410,3 +421,4 @@ class ViewController: UIViewController, MusicController {
     }
     
 }
+
