@@ -1,40 +1,49 @@
 {% extends "base.html" %}
 
-{% block title %}
-    Files
-{% endblock %}
+{% block title %} Mixer {% endblock %}
 
 {% block body %}
-    {% if current_user.is_authenticated %}
-        <div class="form-container" align="center">
+<div class="d-flex justify-content-center h-100">
+    <div class="card">
+        <div class="card-header justify-content-center">
+            <h3>Control Center</h3>
+        </div>
+        <div class="card-body">
+            {% if current_user.is_authenticated %}
             <form method="POST" action="/upload" enctype="multipart/form-data">
-                <label for="inputFile">Upload an .mp3 file:</label>
-                <input type="file" name="inputFile" class="inputfile" multiple>
-                <button type="submit" class="btn"><i class="fas fa-upload"></i></button><br>
+                <div class="input-group form-group">
+                    <input type="file" name="inputFile" class="form-control-file" multiple>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload" class="btn float-right login_btn">
+                </div>
             </form>
+
             <form method="POST" action="/download" enctype="multipart/form-data">
-                <label for="inputFile">Download file:</label><br>
-                <input type="text" name="fileName">
-                <button type="submit" class="btn"><i class="fas fa-download"></i></button><br>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-download"></i></span>
+                    </div>
+                    <input type="text" name="fileName" class="form-control" placeholder="file to download">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Download" class="btn float-right login_btn">
+                </div>
             </form>
+
             <form method="POST" action="/delete" enctype="multipart/form-data">
-                <label for="inputFile">Delete file:</label><br>
-                <input type="text" name="fileName">
-                <button type="submit" class="btn"><i class="fa fa-trash"></i></button><br>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                    </div>
+                    <input type="text" name="fileName" class="form-control" placeholder="file to delete">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn float-right login_btn">
+                </div>
             </form>
+            {% endif %}
         </div>
-    {% else %}
-        </div>
-            <h2>Please Login:</h2>
-            <form method="POST" action="/" enctype="multipart/form-data">
-                <label for="name">Name:</label><br>
-                <input type="text" name="name"><br>
-                <label for="password">Password:</label><br>
-                <input type="password" name="password"><br>
-                <label for="name">Confirm Password:</label><br>
-                <input type="password" name="confirmation"><br>
-                <button type="submit">Submit</button><br><br>
-            </form>
-        </div>
-    {% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -52,13 +52,14 @@ def index():
         confirmation = request.form["confirmation"]
         if not name or not password or not confirmation:
             flash("Please enter all fields!", "error")
-            render_template("index.html")
         elif password == confirmation:
             for user in Users.query.all():
                 if user.password == password and user.name == name:
                     flash(f"Successfully logged in! Welcome, {user.name}!", "login")
                     login_user(user)
                     return render_template("main.html")
+        else:
+            flash(f"Sign in failed!", "error")
     return render_template("index.html")
 
 @app.route("/upload", methods=["POST"])
@@ -105,11 +106,27 @@ def download():
 
 @app.route("/download/<song>")
 def download_song(song):
-    filename = song+".mp3" if not ".mp3" in song else song
+    filename = song + ".mp3" if not ".mp3" in song else song
     file_data = FileContents.query.filter_by(name=filename).first()
     if file_data is not None:
         flash(f"Successfully downloaded {file_data.name}", "success")
         return send_file(BytesIO(file_data.data), mimetype="audio/mpeg", attachment_filename=file_data.name, as_attachment=True)
+    else:
+        flash(f"\"{filename}\" is not in the database!", "error")
+    return render_template("main.html")
+
+@app.route("/stream/<song>")
+def stream_song(song):
+    filename = song + ".mp3" if not ".mp3" in song else song
+    file_data = FileContents.query.filter_by(name=filename).first()
+    if file_data is not None:
+        flash(f"Successfully downloaded {file_data.name}", "success")
+        def generate():
+            data = file_data.data
+            while data:
+                yield data
+                data = fmp3.read(1024)
+        return Response(generate(), mimetype="audio/mpeg")
     else:
         flash(f"\"{filename}\" is not in the database!", "error")
     return render_template("main.html")
