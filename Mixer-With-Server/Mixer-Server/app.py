@@ -127,7 +127,7 @@ def stream_song(song):
             data = file_data.data
             while data:
                 yield data
-                data = fmp3.read(1024)
+                data = file_data.data
         return Response(generate(), mimetype="audio/mpeg")
     else:
         flash(f"\"{filename}\" is not in the database!", "error")
