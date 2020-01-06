@@ -15,7 +15,7 @@ protocol MusicController {
     func getSong(_ name: String)
 }
 
-class ViewController: UIViewController, MusicController {
+class ViewController: UIViewController, MusicController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var actionImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
@@ -23,6 +23,7 @@ class ViewController: UIViewController, MusicController {
     @IBOutlet weak var replayToggleButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var sliderContainer: UIView!
     @IBOutlet weak var speedSlider: CustomSlider!
     @IBOutlet weak var pitchSlider: CustomSlider!
     @IBOutlet weak var reverbSlider: CustomSlider!
@@ -59,7 +60,8 @@ class ViewController: UIViewController, MusicController {
     var runningAnimations = [UIViewPropertyAnimator]()
     var animationProgressWhenInterrupted: CGFloat = 0
         
-    let darkGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
+    let darkGreen = UIColor.init(red: 30.0/255.0, green: 210.0/255.0, blue: 95.0/255.0, alpha: 1)
+    let darkerGreen = UIColor.init(red: 45.0/255.0, green: 140.0/255.0, blue: 50.0/255.0, alpha: 1)
     let lightGreen = UIColor.init(red: 125.0/255.0, green: 200.0/255.0, blue: 100.0/255.0, alpha: 1)
     
     override func viewDidLoad() {
@@ -167,7 +169,9 @@ class ViewController: UIViewController, MusicController {
     
     func setupAudio() {
         songLabel.text = SongsHandler.songs[SongsHandler.currIndex]
-        getSong(SongsHandler.songsExtension.first!)
+        if let firstSong = SongsHandler.songsExtension.randomElement() {
+            getSong(firstSong)
+        }
     }
     
     func setUpGradient() {
@@ -175,7 +179,7 @@ class ViewController: UIViewController, MusicController {
         gradientLayer.frame = self.view.bounds
 //        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 //        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [lightGreen.cgColor, darkGreen.cgColor]
+        gradientLayer.colors = [darkGreen.cgColor, darkerGreen.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -190,17 +194,36 @@ class ViewController: UIViewController, MusicController {
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.addTarget(self, action: #selector(didDoubleTapScreen))
         doubleTapGesture.cancelsTouchesInView = false
+        doubleTapGesture.delegate = self
         self.view.addGestureRecognizer(doubleTapGesture)
         
         swipeLeftGesture = UISwipeGestureRecognizer()
         swipeLeftGesture.addTarget(self, action: #selector(didSwipeLeft))
         swipeLeftGesture.direction = .left
+        swipeLeftGesture.delegate = self
         self.view.addGestureRecognizer(swipeLeftGesture)
         
         swipeRightGesture = UISwipeGestureRecognizer()
         swipeRightGesture.addTarget(self, action: #selector(didSwipeRight))
         swipeRightGesture.direction = .right
+        swipeRightGesture.delegate = self
         self.view.addGestureRecognizer(swipeRightGesture)
+    }
+        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if (self.sliderContainer.bounds.contains(touch.location(in: self.sliderContainer))) {
+            return false
+        }
+        else if (self.slider.bounds.contains(touch.location(in: self.slider))) {
+            return false
+        }
+        else if (self.replayToggleButton.bounds.contains(touch.location(in: self.replayToggleButton))) {
+            return false
+        }
+        else if (self.actionImage.bounds.contains(touch.location(in: self.actionImage))) {
+            return false
+        }
+        return true
     }
     
     func playSong(_ name: String) {

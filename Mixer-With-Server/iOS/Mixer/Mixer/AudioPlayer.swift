@@ -133,7 +133,7 @@ class AudioPlayer {
     }
     
     func play() {
-        if !engine.isRunning {
+        if (!engine.isRunning) {
             startEngine()
         }
         goTo(time: getCurrentPosition())
@@ -141,15 +141,19 @@ class AudioPlayer {
     }
     
     func pause() {
-        player.pause()
+        if (self.isPlaying()) {
+            player.pause()
+        }
     }
     
     func stop() {
-        player.stop()
+        if (self.isPlaying()) {
+            player.stop()
+        }
     }
     
     func replay() {
-        if !engine.isRunning {
+        if (self.isPlaying()) {
             startEngine()
         }
         player.pause()
