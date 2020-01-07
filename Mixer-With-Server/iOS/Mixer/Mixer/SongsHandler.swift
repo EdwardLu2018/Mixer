@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SongsHandler: NSObject {
+class SongsHandler {
     static var songs: [String] = []
     static var songsExtension: [String] = []
     static var currIndex: Int = 0

@@ -9,8 +9,9 @@
 import Alamofire
 
 extension ViewController {
-    
+
     func getSong(_ name: String) {
+        resetSliders()
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = URL(fileURLWithPath: path)
         let filePath = url.appendingPathComponent(name).path

@@ -110,7 +110,7 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
         self.setUpGradient()
         self.setupGuestures()
         self.songLabel.text = "Loading..."
-        self.durationLabel.text = "- - - - -"
+        self.durationLabel.text = "~"
         
         let dbURL = "https://mixerserver.herokuapp.com/dbcontents"
         
@@ -171,6 +171,7 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
         songLabel.text = SongsHandler.songs[SongsHandler.currIndex]
         if let firstSong = SongsHandler.songsExtension.randomElement() {
             getSong(firstSong)
+            SongsHandler.currIndex = SongsHandler.songsExtension.firstIndex(of: firstSong)!
         }
     }
     
@@ -381,7 +382,6 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
         }
         slider.setValue(0.0, animated: true)
         audioPlayer.resetDefaultNodeSettings()
-        resetSliders()
         let indexPath = IndexPath(row: SongsHandler.currIndex, section: 0)
         songViewController.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .bottom)
     }

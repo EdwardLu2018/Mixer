@@ -85,8 +85,8 @@
 				2B9B911122AF2FF70027874A /* SongViewController.swift */,
 				2B9B911922AF41BB0027874A /* SongTableViewCell.swift */,
 				2B9B905E22AD6D270027874A /* Main.storyboard */,
-				2B9B906122AD6D290027874A /* Assets.xcassets */,
 				2B9B906322AD6D290027874A /* LaunchScreen.storyboard */,
+				2B9B906122AD6D290027874A /* Assets.xcassets */,
 				2B9B906622AD6D290027874A /* Info.plist */,
 			);
 			path = Mixer;
