@@ -1,52 +1,12 @@
-import os
-from flask import Flask, render_template, flash, request, send_file, redirect, jsonify, url_for, Response
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user
+from flask import render_template, flash, request, send_file, redirect, jsonify, url_for, Response
+from flask_login import login_user
+from app import app, db
+from app.models import Users, FileContents
 from io import BytesIO
 import threading
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "8675309"
-
-db = SQLAlchemy(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-class FileContents(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500), unique=True)
-    data = db.Column(db.LargeBinary)
-
-class Users(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    password = db.Column(db.String(100))
-
-    def __init__(self, name, password):
-        self.name = name
-        self.password = password
-
-    def get_id(self):
-        return self.id
-
-    def is_active(self):
-        return self.active
-
-    def is_anonymous(self):
-        return self.is_anonymous
-
-@login_manager.user_loader
-def load_user(id):
-    return Users.query.get(int(id))
-
-@login_manager.unauthorized_handler
-def unauthorized():
-    return redirect(url_for("index"))
-
 @app.route("/", methods=["GET", "POST"])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
         name = request.form["name"]
@@ -72,7 +32,7 @@ def upload():
         if uploaded_files:
             for file in uploaded_files:
                 if file.filename.rsplit(".", 1)[0] == "" or file.filename.rsplit(".", 1)[1].lower() != "mp3":
-                    flash(f"\"{file.filename}\" is not an .mp3 file!", "error")
+                    flash(f"\"{file.filename}\" is not a valid .mp3 file!", "error")
                     continue
                 if FileContents.query.filter_by(name=file.filename).scalar():
                     flash(f"{file.filename} already exists!", "error")
@@ -153,7 +113,3 @@ def delete():
 def contents():
     data = list(map(lambda x : x[0], db.session.query(FileContents.name).all()))
     return jsonify(data)
-
-if __name__ == "__main__":
-    from os import environ
-    app.run(debug=False, port=environ.get("PORT", 5000), processes=2)
