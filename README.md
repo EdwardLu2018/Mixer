@@ -1,9 +1,9 @@
 # Mixer
 
 ## Screenshots:
-Playing Song                   |  Downloading Song
-:-----------------------------:|:-------------------------:
-![playing song screenshot](/images/screenshot4.png)  |  ![downloading song screenshot](/images/screenshot3.png)
+Playing Song                                              |  Downloading Song
+:--------------------------------------------------------:|:------------------------------------------------------------:
+![playing song screenshot](/screenshots/screenshot4.png)  |  ![downloading song screenshot](/screenshots/screenshot3.png)
 
 ## Features:
 - Pause and play audio
