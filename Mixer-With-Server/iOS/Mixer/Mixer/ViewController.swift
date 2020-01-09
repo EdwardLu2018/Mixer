@@ -46,6 +46,7 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
     var playedSongs: [URL] = []
     var failedDownload: Bool = false
     var isDownloading: Bool = false
+    var allowInfiniteSongs: Bool = true
     
     weak var timer: Timer?
     
@@ -79,7 +80,7 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
             try AVAudioSession.sharedInstance().setActive(true)
         }
         catch {
-            print(error)
+            print(error.localizedDescription)
         }
         
         songLabel.center.y -= view.bounds.height
@@ -110,7 +111,7 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
         self.setUpGradient()
         self.setupGuestures()
         self.songLabel.text = "Loading..."
-        self.durationLabel.text = "~"
+        self.durationLabel.text = "🎵"
         
         let dbURL = "https://mixerserver.herokuapp.com/dbcontents"
         
@@ -120,15 +121,16 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
                 SongsHandler.songsExtension = SongsHandler.songsExtension.sorted()
                 SongsHandler.songs = SongsHandler.songsExtension.map{ $0.components(separatedBy: ".mp3")[0] }
                 
-                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
-                self.replayToggleButton.isSelected = true
-                self.setupAudio()
-                self.setUpSongViewController()
-                
                 self.ai = UIActivityIndicatorView(style: .gray)
                 self.ai.hidesWhenStopped = true
                 self.ai.center = CGPoint(x: self.view.bounds.width/2, y: self.songLabel.center.y/2)
                 self.view.insertSubview(self.ai, at: 2)
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
+                self.replayToggleButton.isSelected = true
+                self.setupAudio()
+                self.setUpSongViewController()
+                self.setupCommandCenter()
             }
         }
     }
@@ -149,6 +151,40 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
             default:
                 break
             }
+        }
+    }
+    
+    func setupCommandCenter() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.pauseSong()
+            return .success
+        }
+        commandCenter.playCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            self.unPauseSong()
+            return .success
+        }
+        commandCenter.nextTrackCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+//            self.changeSong(SongsHandler.nextSong())
+            return .success
+        }
+        commandCenter.previousTrackCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+//            self.changeSong(SongsHandler.prevSong())
+            return .success
+        }
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.addTarget(self, action: #selector(changePlaybackPositionCommand(_:)))
+    }
+    
+    @objc
+    func changePlaybackPositionCommand(_ event: MPChangePlaybackPositionCommandEvent) -> MPRemoteCommandHandlerStatus {
+        let time = event.positionTime
+        if let audioPlayer = audioPlayer {
+            audioPlayer.goTo(time: Float(time))
+            return .success
+        }
+        else {
+            return .commandFailed
         }
     }
     
@@ -240,12 +276,18 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
                         audioPlayer = AudioPlayer(fileurl: fileurl)
                         audioPlayer.play()
                         self.songLabel.text = name.components(separatedBy: ".mp3")[0]
+                        let nowPlaying: [String:Any] = [MPMediaItemPropertyAlbumTitle: "Mixer",
+                                                        MPMediaItemPropertyTitle: name.components(separatedBy: ".mp3")[0],
+                                                        MPNowPlayingInfoPropertyPlaybackRate: 1.0,
+                                                        MPMediaItemPropertyPlaybackDuration: audioPlayer.lengthSongSeconds,                                                        MPNowPlayingInfoPropertyElapsedPlaybackTime: 0]
+                        let infoCenter = MPNowPlayingInfoCenter.default()
+                        infoCenter.nowPlayingInfo = nowPlaying
                     }
                     
-                    if playedSongs.count > 5 {
+                    if (!allowInfiniteSongs && playedSongs.count > 5) {
                         try filemanager.removeItem(at: playedSongs.removeFirst())
                     }
-                    else if !playedSongs.contains(fileurl) {
+                    else if (!playedSongs.contains(fileurl)) {
                         playedSongs.append(fileurl)
                     }
                 }
@@ -266,9 +308,13 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
             if !self.isDownloading {
                 ai.stopAnimating()
                 durationLabel.text = "\(Int(round(audioPlayer.getCurrentPosition()) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.getCurrentPosition())) % 60)) / \(Int(round(audioPlayer.lengthSongSeconds) / 60)):\(String(format: "%.2d", Int(round(audioPlayer.lengthSongSeconds)) % 60))"
+                let infoCenter = MPNowPlayingInfoCenter.default()
+                infoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] =  audioPlayer.getCurrentPosition()
             }
             else {
                 ai.startAnimating()
+                let infoCenter = MPNowPlayingInfoCenter.default()
+                infoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
             }
             
             slider.setValue(Float(audioPlayer.getCurrentPosition() / audioPlayer.lengthSongSeconds), animated: true)
@@ -333,11 +379,25 @@ class ViewController: UIViewController, MusicController, UIGestureRecognizerDele
     func togglePausePlay() {
         guard let audioPlayer = audioPlayer else { return }
         if audioPlayer.isPlaying() {
-            audioPlayer.pause()
+            self.pauseSong()
         }
         else {
-            audioPlayer.play()
+            self.unPauseSong()
         }
+    }
+    
+    func unPauseSong() {
+        guard let audioPlayer = audioPlayer else { return }
+        audioPlayer.play()
+        let infoCenter = MPNowPlayingInfoCenter.default()
+        infoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
+    }
+    
+    func pauseSong() {
+        guard let audioPlayer = audioPlayer else { return }
+        audioPlayer.pause()
+        let infoCenter = MPNowPlayingInfoCenter.default()
+        infoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
     }
     
     @objc
