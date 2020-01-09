@@ -3,7 +3,7 @@
 ## Screenshots:
 Playing Song                  |  Downloading Song
 :----------------------------:|:-------------------------:
-![mixer screenshot](/images/screenshot2.jpg)  |  ![musicplayer screenshot](/images/screenshot3.jpg)
+![playing song screenshot](/images/screenshot2.png)  |  ![downloading song screenshot](/images/screenshot3.png)
 
 ## Features:
 - Pause and play audio
